@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:orientation="horizontal"
+    android:background="@drawable/bords_neutres">
+
+    <TextView
+        android:id="@+id/Equipe_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:layout_weight="1"
+        android:text="Equipe 1" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:textStyle="bold"
+        android:text="--:--"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/Equipe_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="Equipe 2"
+        android:padding="15dp"
+        android:textAlignment="textEnd" />
+</LinearLayout>

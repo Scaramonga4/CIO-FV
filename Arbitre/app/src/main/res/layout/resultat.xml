@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:text="Quelle est l'issue de ce match?" />
+
+    <RadioGroup
+        android:id="@+id/vainqueur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <RadioButton
+            android:id="@+id/v1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Victoire Equipe 1" />
+
+        <RadioButton
+            android:id="@+id/v2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Victoire Equipe 2" />
+
+        <RadioButton
+            android:id="@+id/ega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Egalite" />
+    </RadioGroup>
+</LinearLayout>

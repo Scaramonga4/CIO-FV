@@ -41,29 +41,28 @@ public class ListeMatchs extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclage);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        db.collection(chemin)
-                .addSnapshotListener((value, error) -> {
+        Log.d(TAG, "onCreate: dddd"+db.collection(chemin).getPath());
+        db.collection(chemin).addSnapshotListener((value, error) -> {
                     if (error != null) {
                         Log.w(TAG, "Listen failed.", error);
                         return;
                     }
-
+            Log.d(TAG, "onCreate: "+value.isEmpty());
                     listeMatchs.clear();
                     if (value != null) {
                         for (QueryDocumentSnapshot document : value) {
                             Match match = document.toObject(Match.class);
+                            match.setId(document.getId());
                             listeMatchs.add(match);
                             Log.d(TAG, document.getId() + " => " + document.getData());
                         }
                     }
                     AdaptateurAdapte adaptateurAdapte = new AdaptateurAdapte(this, listeMatchs);
                     recyclerView.setAdapter(adaptateurAdapte);
-
-
                 });
 
         ActionBar ab = (this.getSupportActionBar());
-        if(ab != null){
+        if(ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
     }

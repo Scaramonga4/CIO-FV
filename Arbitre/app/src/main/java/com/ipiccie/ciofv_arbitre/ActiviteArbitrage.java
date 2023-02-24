@@ -23,10 +23,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -113,8 +117,8 @@ public class ActiviteArbitrage extends AppCompatActivity {
     public void initEcoute(DocumentReference docRef, String poule){
         findViewById(R.id.plus_1).setOnClickListener(v->{
             if (monMatch!=null){
-                Map<String,String> score = Map.of(
-                    "Equ1", String.valueOf(Math.max(Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ1")))+1,0)),
+                Map<String,Integer> score = Map.of(
+                    "Equ1", Math.max(Objects.requireNonNull(monMatch.getScore().get("Equ1"))+1,0),
                     "Equ2", Objects.requireNonNull(monMatch.getScore().get("Equ2"))
                 );
                 docRef.update("score", score);
@@ -122,17 +126,17 @@ public class ActiviteArbitrage extends AppCompatActivity {
         });
         findViewById(R.id.plus_2).setOnClickListener(v->{
             if (monMatch!=null){
-                Map<String,String> score = Map.of(
+                Map<String,Integer> score = Map.of(
                         "Equ1", Objects.requireNonNull(monMatch.getScore().get("Equ1")),
-                        "Equ2", String.valueOf(Math.max(Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ2")))+1,0))
+                        "Equ2", Math.max(Objects.requireNonNull(monMatch.getScore().get("Equ2"))+1,0)
                 );
                 docRef.update("score", score);
             }
         });
         findViewById(R.id.moins_1).setOnClickListener(v->{
             if (monMatch!=null){
-                Map<String,String> score = Map.of(
-                    "Equ1", String.valueOf(Math.max(Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ1")))-1,0)),
+                Map<String,Integer> score = Map.of(
+                    "Equ1", Math.max(Objects.requireNonNull(monMatch.getScore().get("Equ1"))-1,0),
                     "Equ2", Objects.requireNonNull(monMatch.getScore().get("Equ2"))
                 );
                 docRef.update("score", score);
@@ -140,17 +144,21 @@ public class ActiviteArbitrage extends AppCompatActivity {
         });
         findViewById(R.id.moins_2).setOnClickListener(v->{
             if (monMatch!=null){
-                Map<String,String> score = Map.of(
+                Map<String,Integer> score = Map.of(
                         "Equ1", Objects.requireNonNull(monMatch.getScore().get("Equ1")),
-                        "Equ2", String.valueOf(Math.max(Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ2")))-1,0))
+                        "Equ2", Math.max(Objects.requireNonNull(monMatch.getScore().get("Equ2"))-1,0)
                 );
                 docRef.update("score", score);
             }
         });
-
         com.google.android.material.textfield.TextInputEditText heure = findViewById(R.id.heure_debut);
         Calendar myCalendar = Calendar.getInstance();
-        TimePickerDialog.OnTimeSetListener monPreneurDheure = (timePicker, i, i1) -> docRef.update("heure", String.format("%s:%s",i,i1));
+        TimePickerDialog.OnTimeSetListener monPreneurDheure = (timePicker, i, i1) -> {
+            Calendar time = Calendar.getInstance();
+            time.set(Calendar.HOUR_OF_DAY, i);
+            time.set(Calendar.MINUTE, i1);
+            docRef.update("heure", new Timestamp(time.getTime()));
+        };
         heure.setOnClickListener(v-> new TimePickerDialog(this,monPreneurDheure,myCalendar.get(Calendar.HOUR_OF_DAY),myCalendar.get(Calendar.MINUTE),true).show());
 
         findViewById(R.id.fin_match).setOnClickListener(v->{
@@ -163,8 +171,8 @@ public class ActiviteArbitrage extends AppCompatActivity {
             TextView nomj2 = findViewById(R.id.nom_j2);
             j1.setText(String.format("Vainqueur: %S",nomj1.getText().toString()));
             j2.setText(String.format("Vainqueur: %S",nomj2.getText().toString()));
-            int s1 = Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ1")));
-            int s2 = Integer.parseInt(Objects.requireNonNull(monMatch.getScore().get("Equ2")));
+            int s1 = Objects.requireNonNull(monMatch.getScore().get("Equ1"));
+            int s2 = Objects.requireNonNull(monMatch.getScore().get("Equ2"));
             if (s1>s2){
                 group.check(R.id.v1);
             }else if (s2>s1){
@@ -201,9 +209,9 @@ public class ActiviteArbitrage extends AppCompatActivity {
             TextView sc1 = findViewById(R.id.score_equ1);
             TextView sc2 = findViewById(R.id.score_equ2);
             com.google.android.material.textfield.TextInputEditText heure = findViewById(R.id.heure_debut);
-            sc1.setText(monMatch.getScore().get("Equ1"));
-            sc2.setText(monMatch.getScore().get("Equ2"));
-            heure.setText(monMatch.getHeure());
+            sc1.setText(Objects.requireNonNull(monMatch.getScore().get("Equ1")).toString());
+            sc2.setText(Objects.requireNonNull(monMatch.getScore().get("Equ2")).toString());
+            heure.setText(monMatch.getHeure().getHours()+":"+monMatch.getHeure().getMinutes());
         }
     }
 

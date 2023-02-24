@@ -1,20 +1,21 @@
 package com.ipiccie.ciofv_arbitre;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 public class Match {
     private String id;
-    private String heure;
+    private Date heure;
     private String commentaire;
-    private Map<String, String> score;
+    private Map<String, Integer> score;
     private Map <String,String> equipes;
     private Integer termine;
 
     public Match(){
 
     }
-    public  Match(String id, String heure, String commentaire, Map< String,String> score, Map<String,String> equipes, Integer termine){
-        this.id= id;
+    public  Match(Date heure, String commentaire, Map< String,Integer> score, Map<String,String> equipes, Integer termine){
         this.heure = heure;
         this.commentaire = commentaire;
         this.score = score;
@@ -30,11 +31,11 @@ public class Match {
         this.id = id;
     }
 
-    public String getHeure() {
+    public Date getHeure() {
         return heure;
     }
 
-    public void setHeure(String heure) {
+    public void setHeure(Date heure) {
         this.heure = heure;
     }
 
@@ -46,11 +47,11 @@ public class Match {
         this.commentaire = commentaire;
     }
 
-    public Map<String, String> getScore() {
+    public Map<String, Integer> getScore() {
         return score;
     }
 
-    public void setScore(Map<String, String> score) {
+    public void setScore(Map<String, Integer> score) {
         this.score = score;
     }
 

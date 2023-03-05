@@ -93,13 +93,15 @@ public class ActiviteArbitrage extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    j1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                    if ( documentSnapshot.get("classe")!=null) j1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                    else j1.setText("donnée indisponible");
                 });
         db.collection("Equipes").document(Objects.requireNonNull(monMatch.getEquipes().get("Equ2")))
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    j2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                    if ( documentSnapshot.get("classe")!=null) j2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                    else j2.setText("donnée indisponible");
                 });
         commentaire.setText(monMatch.getCommentaire());
         if (monMatch.getTermine()==1){
@@ -211,7 +213,7 @@ public class ActiviteArbitrage extends AppCompatActivity {
             com.google.android.material.textfield.TextInputEditText heure = findViewById(R.id.heure_debut);
             sc1.setText(Objects.requireNonNull(monMatch.getScore().get("Equ1")).toString());
             sc2.setText(Objects.requireNonNull(monMatch.getScore().get("Equ2")).toString());
-            heure.setText(monMatch.getHeure().getHours()+":"+monMatch.getHeure().getMinutes());
+            heure.setText((monMatch.getHeure()==null?"00":monMatch.getHeure().getHours())+":"+(monMatch.getHeure()==null?"00":monMatch.getHeure().getMinutes()));
         }
     }
 

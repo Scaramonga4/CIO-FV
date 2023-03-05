@@ -52,13 +52,15 @@ public class AdaptateurAdapte extends RecyclerView.Adapter<AdaptateurAdapte.View
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                        holder.equipe1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                        if ( documentSnapshot.get("classe")!=null) holder.equipe1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                        else holder.equipe1.setText("donnée indisponible");
                     });
             db.collection("Equipes").document(Objects.requireNonNull(match.getEquipes().get("Equ2")))
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                        holder.equipe2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                        if ( documentSnapshot.get("classe")!=null) holder.equipe2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
+                        else holder.equipe2.setText("donnée indisponible");
                     });
         }
         holder.score.setText(String.format("%s:%s", match.getScore().get("Equ1"), match.getScore().get("Equ2")));

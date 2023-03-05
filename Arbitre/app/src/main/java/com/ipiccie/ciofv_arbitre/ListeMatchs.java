@@ -51,6 +51,7 @@ public class ListeMatchs extends AppCompatActivity {
                     listeMatchs.clear();
                     if (value != null) {
                         for (QueryDocumentSnapshot document : value) {
+                            Log.d(TAG, "onCreate: "+document.getData());
                             Match match = document.toObject(Match.class);
                             match.setId(document.getId());
                             listeMatchs.add(match);

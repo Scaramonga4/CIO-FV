@@ -11,13 +11,3 @@ X
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-r
-Bapp/src/main/java/com/ipiccie/ciofv_arbitre/ActiviteArbitrage.java,b\1\b1e85ddd783a1771d2643bd0d2dc99305d0640b5
-f
-6app/src/main/java/com/ipiccie/ciofv_arbitre/Match.java,e\b\eb2c4490a12b7d55ef0cd8d0a36cbe026bfcb806
-m
-=app/src/main/java/com/ipiccie/ciofv_arbitre/MainActivity.java,1\3\137de50cd3db2063db0b0ac2118e785fd478e42a
-q
-Aapp/src/main/java/com/ipiccie/ciofv_arbitre/AdaptateurAdapte.java,5\5\55f5e16bf361618a446c67adc53a320e332d5422
-l
-<app/src/main/java/com/ipiccie/ciofv_arbitre/ListeMatchs.java,f\d\fd4abde1997fbe0acded988c1c5bdde976b75d0e

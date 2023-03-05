@@ -7,6 +7,7 @@ import java.util.Map;
 public class Match {
     private String id;
     private Date heure;
+    private int passage;
     private String commentaire;
     private Map<String, Integer> score;
     private Map <String,String> equipes;
@@ -15,12 +16,13 @@ public class Match {
     public Match(){
 
     }
-    public  Match(Date heure, String commentaire, Map< String,Integer> score, Map<String,String> equipes, Integer termine){
+    public  Match(Date heure, String commentaire, Map< String,Integer> score, Map<String,String> equipes, Integer termine, int passage){
         this.heure = heure;
         this.commentaire = commentaire;
         this.score = score;
         this.equipes = equipes;
         this.termine = termine;
+        this.passage = passage;
     }
 
     public String getId() {
@@ -69,5 +71,13 @@ public class Match {
 
     public void setTermine(Integer termine) {
         this.termine = termine;
+    }
+
+    public int getPassage() {
+        return passage;
+    }
+
+    public void setPassage(int passage) {
+        this.passage = passage;
     }
 }

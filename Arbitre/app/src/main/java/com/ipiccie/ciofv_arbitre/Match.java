@@ -1,6 +1,5 @@
 package com.ipiccie.ciofv_arbitre;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
@@ -13,10 +12,22 @@ public class Match {
     private Map <String,String> equipes;
     private Integer termine;
 
-    public Match(){
+    private String terrain;
 
+    public Match(){
     }
-    public  Match(Date heure, String commentaire, Map< String,Integer> score, Map<String,String> equipes, Integer termine, int passage){
+
+    public Match(Date heure, int passage, String commentaire, Map<String, Integer> score, Map<String, String> equipes, Integer termine, String terrain) {
+        this.heure = heure;
+        this.passage = passage;
+        this.commentaire = commentaire;
+        this.score = score;
+        this.equipes = equipes;
+        this.termine = termine;
+        this.terrain = terrain;
+    }
+
+    public Match(Date heure, String commentaire, Map< String,Integer> score, Map<String,String> equipes, Integer termine, int passage){
         this.heure = heure;
         this.commentaire = commentaire;
         this.score = score;
@@ -80,4 +91,10 @@ public class Match {
     public void setPassage(int passage) {
         this.passage = passage;
     }
+
+    public String getTerrain() {
+        return terrain;
+    }
 }
+
+

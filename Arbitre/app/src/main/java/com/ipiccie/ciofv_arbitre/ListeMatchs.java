@@ -47,7 +47,6 @@ public class ListeMatchs extends AppCompatActivity {
                         Log.w(TAG, "Listen failed.", error);
                         return;
                     }
-            Log.d(TAG, "onCreate: "+value.isEmpty());
                     listeMatchs.clear();
                     if (value != null) {
                         for (QueryDocumentSnapshot document : value) {

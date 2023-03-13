@@ -12,9 +12,11 @@
         android:theme="@style/Theme.CIOFVarbitre"
         tools:targetApi="31">
         <activity
+            android:name=".phaseFinale"
+            android:exported="false" />
+        <activity
             android:name=".ActiviteArbitrage"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".ListeMatchs"
             android:exported="false" />

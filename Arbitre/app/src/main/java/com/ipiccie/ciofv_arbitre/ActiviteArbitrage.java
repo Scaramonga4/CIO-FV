@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -18,26 +17,27 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
-import java.time.Instant;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class ActiviteArbitrage extends AppCompatActivity {
 
     private Match monMatch;
+    private Equipe Equ1;
+    private Equipe Equ2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,15 @@ public class ActiviteArbitrage extends AppCompatActivity {
         String id = getIntent().getStringExtra("id");
         String poule = getIntent().getStringExtra("poule");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("Poules").document(poule).collection("matchs").document(id);
+        DocumentReference docRef;
+        //si on est en poule ou en finale
+        if (poule.contains("Poule")) docRef = db.collection("Poules").document(poule).collection("matchs").document(id);
+        else docRef = db.collection("Poules").document("finale").collection(poule).document(id);
         docRef.addSnapshotListener((snapshot, e) -> {
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e);
                 return;
             }
-
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "Current data: " + snapshot.getData());
                 monMatch = snapshot.toObject(Match.class);
@@ -61,24 +63,28 @@ public class ActiviteArbitrage extends AppCompatActivity {
                     majNoms(monMatch, db);
                     maJinter(monMatch);
                     Log.d(TAG, "onCreate: "+monMatch.getTermine());
-                    if (monMatch.getTermine() == 0)initEcoute(docRef,poule);
-                    else{
-                        findViewById(R.id.info_fin).setVisibility(View.VISIBLE);
-                        Button bouton = findViewById(R.id.fin_match);
-                        EditText commentaire = findViewById(R.id.commentaire);
-                        bouton.setBackgroundColor(getResources().getColor(R.color.gris));
-                        commentaire.setFocusable(false);
-                        commentaire.setClickable(false);
-                        commentaire.setCursorVisible(false);
+                    if (monMatch.getEquipes()!=null && monMatch.getEquipes().get("Equ1")!=null && monMatch.getEquipes().get("Equ2")!=null) {
+                        DocumentReference docRefEqu1 = db.collection("Poules").document(monMatch.getEquipes().get("Equ1"));
+                        DocumentReference docRefEqu2 = db.collection("Poules").document(monMatch.getEquipes().get("Equ2"));
+                        if (monMatch.getTermine() == 0)
+                            initEcoute(docRef, poule, docRefEqu1, docRefEqu2);
+                        else {
+                            findViewById(R.id.info_fin).setVisibility(View.VISIBLE);
+                            Button bouton = findViewById(R.id.fin_match);
+                            EditText commentaire = findViewById(R.id.commentaire);
+                            bouton.setBackgroundColor(ContextCompat.getColor(this,R.color.gris));
+                            commentaire.setFocusable(false);
+                            commentaire.setClickable(false);
+                            commentaire.setCursorVisible(false);
+                        }
+                    }else{
+                        Toast.makeText(this, "Une erreur est survenue, contactez les organisateurs", Toast.LENGTH_LONG).show();
                     }
                 }
-
-
             } else {
                 Log.d(TAG, "Current data: null");
             }
         });
-
         ActionBar ab = (this.getSupportActionBar());
         if(ab != null){
             ab.setDisplayHomeAsUpEnabled(true);
@@ -92,31 +98,34 @@ public class ActiviteArbitrage extends AppCompatActivity {
         db.collection("Equipes").document(Objects.requireNonNull(monMatch.getEquipes().get("Equ1")))
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    if ( documentSnapshot.get("classe")!=null) j1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
-                    else j1.setText("donnée indisponible");
+                    Log.d(TAG, "onSuccess majk: "+documentSnapshot.getData());
+                    Equ1 = documentSnapshot.toObject(Equipe.class);
+                    Log.d(TAG, "majNoms: "+Equ1.devise);
+                    if (Equ1!=null &&  Equ1.getClasse()!=null) j1.setText(Equ1.getClasse());
+                    else j1.setText(getString(R.string.txt_donne_pas_dispo));
                 });
         db.collection("Equipes").document(Objects.requireNonNull(monMatch.getEquipes().get("Equ2")))
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    if ( documentSnapshot.get("classe")!=null) j2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
-                    else j2.setText("donnée indisponible");
+                    Equ2 = documentSnapshot.toObject(Equipe.class);
+                    if (Equ2!=null &&  Equ2.getClasse()!=null) j2.setText(Equ2.getClasse());
+                    else j2.setText(getString(R.string.txt_donne_pas_dispo));
                 });
         commentaire.setText(monMatch.getCommentaire());
         if (monMatch.getTermine()==1){
-            j1.setBackgroundColor(getResources().getColor(R.color.victoire));
-            j2.setBackgroundColor(getResources().getColor(R.color.banni));
+            j1.setBackgroundColor(ContextCompat.getColor(this,R.color.victoire));
+            j2.setBackgroundColor(ContextCompat.getColor(this,R.color.banni));
         }else if (monMatch.getTermine()==2){
-            j1.setBackgroundColor(getResources().getColor(R.color.banni));
-            j2.setBackgroundColor(getResources().getColor(R.color.victoire));
-        }if (monMatch.getTermine()==3){
-            j1.setBackgroundColor(getResources().getColor(R.color.banni));
-            j2.setBackgroundColor(getResources().getColor(R.color.banni));
+            j1.setBackgroundColor(ContextCompat.getColor(this,R.color.banni));
+            j2.setBackgroundColor(ContextCompat.getColor(this,R.color.victoire));
+        }else if (monMatch.getTermine()==3){
+            j1.setBackgroundColor(ContextCompat.getColor(this,R.color.banni));
+            j2.setBackgroundColor(ContextCompat.getColor(this,R.color.banni));
         }
     }
 
-    public void initEcoute(DocumentReference docRef, String poule){
+    public void initEcoute(DocumentReference docRef, String poule, DocumentReference docRefEqu1, DocumentReference docRefEqu2){
         findViewById(R.id.plus_1).setOnClickListener(v->{
             if (monMatch!=null){
                 Map<String,Integer> score = Map.of(
@@ -186,20 +195,28 @@ public class ActiviteArbitrage extends AppCompatActivity {
                         switch (group.getCheckedRadioButtonId()){
                             case R.id.v1:
                                 docRef.update("termine",1);
+                                Equ1.setVictoires(Equ1.getVictoires()+1);
+                                Equ2.setDefaites(Equ2.getDefaites()+1);
                                 break;
                             case R.id.v2:
                                 docRef.update("termine",2);
+                                Equ1.setDefaites(Equ1.getDefaites()+1);
+                                Equ2.setVictoires(Equ2.getVictoires()+1);
                                 break;
                             default:
                                 docRef.update("termine",3);
+                                Equ1.setEgalites(Equ1.getEgalites()+1);
+                                Equ2.setEgalites(Equ1.getEgalites()+1);
                                 break;
                         }
                         EditText commentaire= findViewById(R.id.commentaire);
                         docRef.update("commentaire",commentaire.getText().toString());
+                        docRefEqu1.set(Equ1).addOnSuccessListener(unused -> Log.d(TAG, "onSuccess: POUF scores à jour"));
+                        docRefEqu2.set(Equ2);
                         dialogInterface.dismiss();
                         Intent intention = new Intent(this,ListeMatchs.class);
                         intention.putExtra("poule",poule);
-                        startActivity(intention);
+                        onBackPressed();
                     })
                     .setView(view)
                     .show();
@@ -240,8 +257,9 @@ public class ActiviteArbitrage extends AppCompatActivity {
                         .setPositiveButton("ok", (dialogInterface, i) -> dialogInterface.dismiss())
                         .show();
                 return(true);
+            default:
+                return(super.onOptionsItemSelected(item));
         }
-        return(super.onOptionsItemSelected(item));
     }
 
 }

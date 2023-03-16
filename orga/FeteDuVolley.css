@@ -1,0 +1,291 @@
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    font-size: 120%;
+}
+
+h1{
+    text-align : center;
+    
+    margin-top : 0,2em;
+}
+
+button {
+    border-radius: 4px;
+    margin:10px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin-bottom:10px;
+    opacity: 0.8;
+    box-sizing: border-box;
+    height: auto;
+    -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+}
+button:hover{
+    background-color: #006a43;;
+}
+
+input{
+    background-color: rgb(180, 180, 180);
+    width:88%;
+    margin:10px;
+    padding: 10px;
+    min-height: 30px;
+    border: none;
+    border-bottom: 2px solid blue;
+    border-radius: 4px;
+    font-size: large;
+}
+
+input[type=text]:focus {
+    background-color: white;
+    font-size: large;
+}
+
+fieldset{
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+legend{
+    color: grey;
+}
+
+li {
+    background-color: #dedede;
+    list-style-type: none;
+    margin: inherit;
+    margin-bottom: 8px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 10px;
+    width: fit-content;
+    -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+}
+
+li:hover{
+    display: block;
+    background-color: rgb(0, 132, 255);
+}
+
+.Liste_Equipes{
+    border : 4px blue solid;
+    margin : 10px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    background:
+    linear-gradient(to right, red 4px, transparent 4px) 0 0,
+    linear-gradient(to right, red 4px, transparent 4px) 0 100%,
+    linear-gradient(to left, red 4px, transparent 4px) 100% 0,
+    linear-gradient(to left, red 4px, transparent 4px) 100% 100%,
+    linear-gradient(to bottom, red 4px, transparent 4px) 0 0,
+    linear-gradient(to bottom, red 4px, transparent 4px) 100% 0,
+    linear-gradient(to top, red 4px, transparent 4px) 0 100%,
+    linear-gradient(to top, red 4px, transparent 4px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+#vide{
+    font-style: italic;
+    display: none;
+    margin: auto;
+}
+
+.Boutons{
+    display: flex;
+}
+
+#btn_nouv_equ{
+    background: cornflowerblue;
+}
+
+#btn_nouv_equ:hover{
+    background: rgb(0, 64, 182);
+}
+
+.Equipe{
+    color: #257ADF;
+}
+
+.Aligné{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.Pool{
+    border: 3px black solid;
+    padding-bottom: 20%;
+    padding-right: 50%
+}
+
+.Liste_Equipes_défil{
+    border-right: 5px black solid;
+    padding-right: 10%;
+}
+
+.container {
+    padding: 16px;
+    text-align: center;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5daa;
+    padding-top: 50px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+.clearfix{
+    display: flex;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .enrbtn .suprBtn{
+    float: left;
+    width: 50%;
+}
+
+
+  
+/* Add a color to the cancel button */
+.cancelbtn {
+    background-color: #ccc;
+    color: black;
+}
+
+.suprBtn{
+    background-color: #ff0404;
+    color: rgb(255, 255, 255);
+}
+
+.suprBtn:hover{
+    background-color: #b80101;
+}
+
+.cancelbtn:hover{
+    background-color: gray;
+}
+  
+  /* Add a color to the delete button */
+.enrbtn {
+    background-color: royalblue;
+}
+.enrbtn:hover{
+    background-color: rgb(0, 32, 126);
+}
+
+#entre_joueur{
+    width: -moz-available;
+}
+
+#plus_joueur{
+    width: unset;
+}
+
+.mesJoueurs{
+    display: flex;
+    width: 93%;
+    margin: auto;
+}
+
+#liste_joueurs{
+    flex-wrap: wrap;
+}
+
+.maChips {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    height: fit-content;
+    font-size: 17px;
+    border-radius: 15px;
+    background-color: #b6b6b6;
+  }
+
+.closebtn {
+    padding-left: 10px;
+    color: #888;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+  
+.closebtn:hover {
+    color: #000;
+}
+
+#snackbar {
+    visibility: hidden; 
+    min-width: 200px; 
+    margin-left: -100px; 
+    background-color: #333; 
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    }
+#snackbar.show {
+    visibility: visible; 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+    
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+    
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+    
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>884762562507-5f6mgcrh222q57uih6ra11b7tk5s44mr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.884762562507-5f6mgcrh222q57uih6ra11b7tk5s44mr</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>884762562507-0gqi90f7omk130fkm22l0eavd71ot2q6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBxvxt_lIXlskt0OaXrJlS3kU3CnWZLiNA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>884762562507</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ipiccie.ciofvSpectateur</string>
+	<key>PROJECT_ID</key>
+	<string>fete-du-volley</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fete-du-volley.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:884762562507:ios:9b84cad29daf376504304e</string>
+</dict>
+</plist>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/terrain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="terrain"
+        android:textAlignment="center"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:id="@+id/ligne_equ1"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#79AAF4">
+
+        <TextView
+            android:id="@+id/nom_equipe_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Equipe_1" />
+
+        <TextView
+            android:id="@+id/score_equipe_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingEnd="3dp"
+            android:text="0"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:id="@+id/ligne_equ2"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#478BF1">
+
+        <TextView
+            android:id="@+id/nom_equipe_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Equipe_2"
+            android:paddingEnd = "3dp"/>
+
+        <TextView
+            android:id="@+id/score_equipe_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="0"
+            android:paddingEnd = "3dp"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

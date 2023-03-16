@@ -1,0 +1,15 @@
+
+f
+java:S1192Å"HDefine a constant instead of duplicating this literal "termine" 3 times.(ŸÛ„î8ÓÓ÷·í0
+i
+java:S1192‡"FDefine a constant instead of duplicating this literal "score" 4 times.(àùúøÿÿÿÿ8ÔÓ÷·í0
+i
+java:S11924"GDefine a constant instead of duplicating this literal "Poules" 4 times.(¡ğñ•ÿÿÿÿÿ8ÕÓ÷·í0
+p	java:S116'"ORename this field "Equ1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„šíşıÿÿÿÿ8¿Ô÷·í0
+k	java:S116("ORename this field "Equ2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒõæÖ8¿Ô÷·í0
+t
+java:S3776+"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(¨Œşÿÿÿÿ8ÒÔ÷·í0
+S
+java:S1874é"0Remove this use of "getHours"; it is deprecated.(§„šÇúÿÿÿÿ8–Õ÷·í0
+U
+java:S1874é"2Remove this use of "getMinutes"; it is deprecated.(§„šÇúÿÿÿÿ8˜Õ÷·í0

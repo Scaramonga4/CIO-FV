@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Création des équipes</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <h1>Création des équipes</h1>
+        <div>
+            <span>Nombre d'équipes : <span id=Nombre_Equipes>0</span></span>
+            <div class="Boutons">
+                <button id = "btn_nouv_equ">+ Ajouter une équipe</button>
+                <button onclick="Confirm_Equipe()">Confirmer les équipes</button>
+            </div>   
+        </div>
+        <div id="Liste_Equipes" class="Liste_Equipes">
+            <p id="vide"> Aucune équipe enregistrée</p>
+        </div>
+        <div id="snackbar">Enregistré!</div>
+        <div id="pop_nouv" class="modal">
+            <form class="modal-content" onsubmit="return Enregistre_equipe()" autocomplete="on">
+                <div class="container">
+                <h1 id="action_equ">Nouvelle classe</h1>
+                <p>Entrez les caractéristiques de l'équipe</p>
+                <input id="entre_nom_equipe" type="text" placeholder="Nom de l'équipe" required>
+                <input id="entre_devise" type="text" placeholder="Devise de l'équipe" required>
+                <input id="entre_arbitre" type="text" placeholder="Arbitre de la classe" required>
+                <fieldset>
+                    <legend>Joueurs:</legend>
+                    <input id="entre_capitaine" type="text" placeholder="Capitaine de l'équipe" required>
+                    <div class="mesJoueurs">
+                        <input id="entre_joueur" type="text" placeholder="Entrez le nom d'un joueur">
+                        <button id="plus_joueur" type="button">Ajouter</button>
+                    </div>
+                    <div id="liste_joueurs" class="mesJoueurs"></div>
+                </fieldset>
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn" onclick="document.getElementById('pop_nouv').style.display='none'">Annuler</button>
+                    <button class="enrbtn" id="enr_nouv" type="submit">Enregistrer</button>
+                </div>
+                </div>
+            </form>
+        </div>
+        <script src="FeteDuVolley.js"> </script>
+    </body>
+</html>

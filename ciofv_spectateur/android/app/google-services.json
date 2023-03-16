@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "884762562507",
+    "project_id": "fete-du-volley",
+    "storage_bucket": "fete-du-volley.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884762562507:android:4430c96328967df004304e",
+        "android_client_info": {
+          "package_name": "com.ipiccie.ciofv_arbitre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884762562507-0gqi90f7omk130fkm22l0eavd71ot2q6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipiccie.ciofv_arbitre",
+            "certificate_hash": "38355c917826833d2a728d14b40194fbfb987cf5"
+          }
+        },
+        {
+          "client_id": "884762562507-lkqfmtdak3b0s45uvmuoorgoajd60brc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg84hDWrB4ad5h5wJppHmhHwVej07SROM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884762562507-lkqfmtdak3b0s45uvmuoorgoajd60brc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884762562507:android:c83513ed770d844704304e",
+        "android_client_info": {
+          "package_name": "com.ipiccie.ciofv_spectateur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884762562507-lkqfmtdak3b0s45uvmuoorgoajd60brc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg84hDWrB4ad5h5wJppHmhHwVej07SROM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884762562507-lkqfmtdak3b0s45uvmuoorgoajd60brc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

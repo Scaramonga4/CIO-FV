@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Création des matchs</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <div style="display: flex;">
+            <h1 style="flex: auto;">Création des matchs</h1>
+            <button class="petit" id ="enr_poules">Enregistrer</button>
+            <button class="petit" id="conf_poules">Confirmer</button>
+        </div>
+        <div id="container-matchs">
+            <div id="contient_matchs">
+                <div id="liste_matchs" >
+                    <div class="loader"></div>
+                </div>
+            <div id = "actions">
+                <button class="petit fantome" id="nouv_match">Ajouter un match</button>
+                <button class="petit"> prec.</button>
+                <button class="petit"> suiv.</button>
+            </div>
+
+            </div>
+            <div id="arbitres">
+                <h3>Arbitres</h3>
+                <ul id="liste_arbitre">
+                    
+                </ul>
+            </div>
+        </div>
+        <div id="snackbar">Enregistré!</div>
+        <script src="F-V_ConfigMatchs.js"> </script>
+        <script src="W3ext.js"> </script>
+    </body>
+</html>

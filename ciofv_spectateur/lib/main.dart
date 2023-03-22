@@ -17,7 +17,7 @@ Future<void> main() async {
 class FeteVolley extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false, //Pour enlever l'icone debug
       title: 'Fête Du Volley !',
       home: Accueil(),
@@ -43,7 +43,7 @@ class _Accueil extends State<Accueil>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: BarreAppli(),
+        appBar: const BarreAppli(),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(

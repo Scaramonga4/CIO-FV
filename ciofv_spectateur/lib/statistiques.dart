@@ -13,7 +13,7 @@ void main() {
 class FeteVolley extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false, //Pour enlever l'icone debug
       title: 'Fête Du Volley !',
       //home: ScorePage(),
@@ -45,7 +45,7 @@ class ScorePage{ //création de la page de Poules
     ));
   }
 }
-
+/*
 DataTable( //création de la table des scores
 columns: [
 DataColumn(label: Text('EQUIPE')),
@@ -54,7 +54,7 @@ DataColumn(label: Text('Défaites')),
 DataColumn(label: Text('Egalités')),
 DataColumn(label: Text('Points')),
 ];
-/*
+
 
   rows : [
     DataRow(cells: [                   // Pour rajouter les données

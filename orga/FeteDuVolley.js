@@ -31,6 +31,8 @@ function RecupEquipes(){
                 document.getElementById(change.doc.id).innerHTML = classe;
             }
             if (change.type === "removed") {
+                Nombre_Equipes -= 1;
+                document.getElementById("Nombre_Equipes").innerHTML = Nombre_Equipes;
                 document.getElementById(change.doc.id).remove();
             }
         });
@@ -125,7 +127,7 @@ function nouvJoueur(nom){
 }
 
 function Confirm_Equipe() {
-    document.location.href = "F-VConfigPools.html";
+    document.location.href = "F-V_ConfigPoules.html";
 }
 
 function notifie(msg){

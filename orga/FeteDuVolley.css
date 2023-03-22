@@ -4,12 +4,22 @@ html{
 
 body{
     font-size: 120%;
+    min-height: 90vh;
+}
+
+#separe{
+    height: 80%;
+    display: flex;
 }
 
 h1{
     text-align : center;
-    
     margin-top : 0,2em;
+}
+
+h3{
+    margin: 0;
+    flex: auto;
 }
 
 button {
@@ -32,6 +42,22 @@ button {
 }
 button:hover{
     background-color: #006a43;;
+}
+
+.petit{
+    font-size:16px;
+    width: unset;
+    align-self: center;
+}
+
+.fantome{
+    opacity: O.9;
+    margin: auto;
+}
+
+#actions, #arbitres{
+    display: flex;
+    text-align: center;
 }
 
 input{
@@ -100,6 +126,11 @@ li:hover{
   background-size: 20px 20px;
 }
 
+#list_Equipes{
+    display: inline-grid;
+    align-content: start;
+}
+
 #vide{
     font-style: italic;
     display: none;
@@ -110,33 +141,119 @@ li:hover{
     display: flex;
 }
 
-#btn_nouv_equ{
+#btn_nouv_equ, #enr_poules{
     background: cornflowerblue;
 }
 
-#btn_nouv_equ:hover{
+#btn_nouv_equ, #enr_poules:hover{
     background: rgb(0, 64, 182);
 }
 
 .Equipe{
-    color: #257ADF;
-}
-
-.Aligné{
+    width: 150px;
     display: inline-block;
-    vertical-align: middle;
+    padding: 10px;
+    margin: 10px;
+    height: fit-content;
+
+    font-size: 17px;
+    border : 2px red solid;
+    border-radius: 15px;
+    background-color: #dedcdc;
+}
+
+.Equipe:hover{
+    background-color: #c3c3c3;
+}
+
+[pas-selectionnable]::after {
+  content: attr(pas-selectionnable);
+}
+
+/*----------------------------------*/
+#div_poules{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 80% 80%;
+    
+    gap: 30px 30px;
+    vertical-align: top;
     float: none;
+    width: 100%;
+    height: 50vh;
+    margin: 10px;
 }
 
-.Pool{
+.poule{
+    overflow: auto;
+    display: inline-block;
     border: 3px black solid;
-    padding-bottom: 20%;
-    padding-right: 50%
+    border-radius: 10px;
+    text-align: center;
 }
 
-.Liste_Equipes_défil{
-    border-right: 5px black solid;
-    padding-right: 10%;
+
+.Liste_Equipes_defil{
+    border-right: 4px black solid;
+    padding-right: 3%;
+    min-height: 100%;
+    text-align: center
+}
+
+.Survole{
+    border-style: dashed;
+    background-color: lightgray;
+}
+
+.Cache{
+    visibility: hidden;
+}
+
+.Affiche{
+    visibility: visible;
+}
+
+.Bouton_poules{
+    border: 3px black solid;
+    padding-right: 5%;
+    padding-left: 2%;
+}
+
+.box{
+    display: grid;
+    width: auto;
+    grid-template-columns: 250px 250px;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.box:first-child{
+    align-self: center;
+}
+
+.Issue_match{
+    border: 3px black solid;
+    padding: 5% 2%;
+    margin-top: 15%;
+}
+/*----------------------------------*/
+#container-matchs{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 100% ;
+}
+
+#liste_matchs{
+    border-right: 4px grey solid;
+    padding-right: 3%;
+}
+
+.adversaire{
+    flex:1;
+}
+.match{
+    display: inline-flex;
+    width: 100%;
 }
 
 .container {
@@ -268,7 +385,34 @@ li:hover{
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
+
+
+.selecteur {
+    margin: auto;
+    width: 120px;
+    height: 30px;
+    border: 1px solid #999;
+    font-size: 18px;
+    color: #1c87c9;
+    background-color: #eee;
+    border-radius: 5px;
+    box-shadow: 4px 4px #ccc;
+    }
     
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}

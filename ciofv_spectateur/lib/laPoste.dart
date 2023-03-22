@@ -21,17 +21,44 @@ class laPoste {
   Future<List<String>> getTerrains(List<String> listePoules) async {
     List<String> mesTerrains = [];
     for (String po in listePoules){
-      final x = await firebaseFirestore.collection("Poules").doc(po).snapshots() as Map<String, dynamic>;;
-      mesTerrains.add(x["terrains"]!=null?x["terrains"]:"terrain indisponible");
+      await firebaseFirestore.collection("Poules").doc(po).get().then((DocumentSnapshot doc) {
+        final x = doc.data() as Map<String, dynamic>;
+        mesTerrains.add(x["terrain"] ?? "terrain indisponible");
+      },
+        onError: (e) => print("Error getting document: $e"),
+      );
     }
     return mesTerrains;
   }
 
+  Future <Map<String,dynamic>> nomEquipes(Map<String,dynamic> ids) async{
+    final res = ids;
+    await firebaseFirestore.collection("Equipes").doc(ids["Equ1"]).get().then((DocumentSnapshot doc) {
+      final x = doc.data() as Map<String, dynamic>;
+      res["Equ1"] = x["classe"]??"équipe indisponible";
+    },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    await firebaseFirestore.collection("Equipes").doc(ids["Equ2"]).get().then((DocumentSnapshot doc) {
+      final x = doc.data() as Map<String, dynamic>;
+      res["Equ2"] = x["classe"]??"équipe indisponible";
+    },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    return res;
+  }
+
+
   Future<List<String>> getNomsPoules(List<String> listePoules) async {
     List<String> mesPoules = [];
     for (String po in listePoules){
-      final x = await firebaseFirestore.collection("Poules").doc(po).snapshots() as Map<String, dynamic>;;
-      mesPoules.add(x["poule"]!=null?x["poule"]:"poule indisponible");
+      print(po);
+      await firebaseFirestore.collection("Poules").doc(po).get().then((DocumentSnapshot doc) {
+        final x = doc.data() as Map<String, dynamic>;
+        mesPoules.add(x["name"] ?? "poule indisponible");
+      },
+      onError: (e) => print("Error getting document: $e"),
+      );
     }
     return mesPoules;
   }

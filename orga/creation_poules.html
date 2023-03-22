@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Création des poules</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <h1>Création des poules</h1>
+        
+        <div  class="Aligné Liste_Equipes_défil">
+            <h3>Liste des équipes</h3>  
+            <!--Pour mettre les équipes-->
+            <p id="Equipe_1" class="Equipe">Equipe_test 1</p>
+        </div>
+        
+        <div class="Aligné">
+            <span class="Pool Aligné" id="Pool_A">Poule A</span>
+            <span class="Pool Aligné" id="Pool_B">Poule B</span>
+            <span class="Pool Aligné" id="Pool_C">Poule C</span>
+            <span class="Pool Aligné" id="Pool_D">Poule D</span>
+            <span class="Pool Aligné" id="Pool_E">Poule E</span>
+            <span class="Pool Aligné" id="Pool_F">Poule F</span>
+        </div>
+        
+        <div>
+            <button onclick="Confirmer_pools()" id="Confirm_pools" class="Cache">Valider les pools</button>
+        </div>
+        <script src="FeteDuVolley.js"> </script>
+    </body>
+</html>

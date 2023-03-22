@@ -19,16 +19,23 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
   FirebaseFirestore db = FirebaseFirestore.instance;
   late laPoste monPostier;
   List<String> poules = ["Poule_A","Poule_B","Poule_C","Poule_D","Poule_E","Poule_F"];
-  late List<String> nomDesPoules;
-  late List<String> terrain;
+  late List<String> nomDesPoules = ["Poule A","Poule B","Poule C","Poule D","Poule E","Poule F"];
+  late List<String> terrain= [];
   List<QueryDocumentSnapshot> listeEquipe = [];
+  late double ppadding = 0;
+  late double hauteur = 100;
 
   @override
-  initState() async {
+  initState() {
     super.initState();
     monPostier = laPoste(firebaseFirestore: db);
-    poules = initPoule();
-    terrain = await monPostier.getTerrains(poules);
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        ppadding = MediaQuery.of(context).size.width/30;
+        hauteur = MediaQuery.of(context).size.height;
+      });
+    });
+    initPouleEtTerrains();
   }
 
   @override
@@ -43,44 +50,53 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
       children: List.generate(6, (index) {
         return Center(
           child:Padding(
-            padding: const EdgeInsets.only(
-              left: 40,
-              top: 20,
-              right: 40,
-              bottom: 20,
+            padding: EdgeInsets.only(
+              left: ppadding,
+              top: ppadding/2,
+              right: ppadding,
+              bottom: ppadding/2,
             ),
             child: GestureDetector(
               onTap: ()=> Navigator.of(context).push(versMaPoule(index)),
               child:Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent),
-                borderRadius: BorderRadius.all(Radius.circular(20))
+                borderRadius: const BorderRadius.all(Radius.circular(20))
               ),
-              child:Column(
+              child:Container(
+                  constraints: new BoxConstraints(
+                  minHeight: 800,
+                  minWidth: ppadding*28,
+                  maxHeight: 900,
+                  maxWidth: ppadding*30,
+                  ),
+                child:Column(
+
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 40,
-                    top: 20,
-                    right: 40,
-                    bottom: 5,
+                  padding: EdgeInsets.only(
+                    left: ppadding,
+                    top: ppadding/2,
+                    right: ppadding,
+                    bottom: ppadding/8,
                   ),
                   child:Text(
                     nomDesPoules[index],
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    //style: Theme.of(context).textTheme.headlineSmall,
                   )
                 ),
               Padding(
-                  padding: const EdgeInsets.only(
-                    left: 40,
-                    top: 5,
-                    right: 40,
-                    bottom: 5,
+                  padding: EdgeInsets.only(
+                    left: ppadding,
+                    top: ppadding/8,
+                    right: ppadding,
+                    bottom: ppadding/8,
                   ),
-                  child:Text(
+                  child:terrain.isNotEmpty?Text(
                    "terrain: "+terrain[index],
-                   style:TextStyle(fontStyle: FontStyle.italic)
-                  )),
+                   style:const TextStyle(fontStyle: FontStyle.italic)
+                  ):Center(
+                    child: LinearProgressIndicator())),
                 const Divider(
                   height: 5,
                   thickness: 2,
@@ -91,7 +107,7 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
                 buildListEquipe(poules[index])
             ],
           )
-        ))));
+        )))));
       }),
     ),
     );
@@ -100,6 +116,13 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
 
   Widget buildListEquipe(String poule) {
     return Flexible(
+      child:Container(
+        constraints: new BoxConstraints(
+          minHeight: double.infinity,
+          minWidth: ppadding*28,
+          maxHeight: double.infinity,
+          maxWidth: ppadding*30,
+        ),
       child: StreamBuilder<QuerySnapshot>(
           stream: monPostier.prendNomPoules(poule),
           builder: (BuildContext context,
@@ -114,7 +137,7 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
                   );
                 }else {
                 return const Center(
-                  child: Text('Aucune équipe programmée...'),
+                  child: Text('Aucune équipe programmée...', textAlign: TextAlign.center,),
                 );
               }
             } else {
@@ -126,12 +149,12 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
             }
           }
           )
-    );
+    ));
   }
 
   Widget construitEquipe(int index, QueryDocumentSnapshot<Object?>? doc) {
     if (doc != null && doc.get("classe")!=null) {
-      return Container(padding: const EdgeInsets.all(10),
+      return Container(padding: const EdgeInsets.all(2),
         width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -139,17 +162,18 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
         child: Center(
           child:ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
+                padding: EdgeInsets.all(2)
+                //minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
               ),
             onPressed: ()=>Navigator.of(context).push(versMaPoule(index)),
             child:Text(
                 doc.get("classe"),
-                style: TextStyle(fontSize: 18),
+                //style: const TextStyle(fontSize: 18),
             )
           )
         ),);
     }else{
-      return Text("équipe indisponible");
+      return const Text("équipe indisponible");
     }
   }
 
@@ -170,8 +194,11 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
     );
   }
 
-  Future<List<String>> initPoule() {
-    return monPostier.getNomsPoules(poules);
+  Future<void> initPouleEtTerrains() async {
+    terrain = await monPostier.getTerrains(poules);
+    nomDesPoules = await monPostier.getNomsPoules(poules);
+    setState(() {
+    });
   }
 }
 

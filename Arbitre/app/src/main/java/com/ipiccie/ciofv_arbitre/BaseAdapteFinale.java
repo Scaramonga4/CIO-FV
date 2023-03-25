@@ -62,20 +62,8 @@ public class BaseAdapteFinale extends BaseAdapter {
             score2.setText(monMatch.getScore().get("Equ2").toString());
         }
 
-        db.collection("Equipes").document(Objects.requireNonNull(monMatch.getEquipes().get("Equ1")))
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    if ( documentSnapshot.get("classe")!=null) joueur1.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
-                    else joueur1.setText("donnée indisponible");
-                });
-        db.collection("Equipes").document(Objects.requireNonNull(monMatch.getEquipes().get("Equ2")))
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
-                    if ( documentSnapshot.get("classe")!=null) joueur2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
-                    else joueur2.setText("donnée indisponible");
-                });
+        joueur1.setText(monMatch.getNomEquipe1());
+        joueur2.setText(monMatch.getNomEquipe2());
 
         if (monMatch.getTermine()!= null && monMatch.getTermine()!=0){
             switch (monMatch.getTermine()){
@@ -98,10 +86,9 @@ public class BaseAdapteFinale extends BaseAdapter {
             Intent intention = new Intent(c,ActiviteArbitrage.class);
             intention.putExtra("id",monMatch.getId());
             intention.putExtra("poule",phase);
+            intention.putExtra("nomEqu1",monMatch.getNomEquipe1());
+            intention.putExtra("nomEqu2",monMatch.getNomEquipe2());
             c.startActivity(intention);
-            if (c instanceof ListeMatchs){
-                ((ListeMatchs)c).lanceAct(monMatch.getId());
-            }
         });
 
         return view;

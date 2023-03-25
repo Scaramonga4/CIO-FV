@@ -38,5 +38,17 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Egalite" />
+
+        <RadioButton
+            android:id="@+id/f1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forfait Equipe 1" />
+
+        <RadioButton
+            android:id="@+id/f2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forfait Equipe 2" />
     </RadioGroup>
 </LinearLayout>

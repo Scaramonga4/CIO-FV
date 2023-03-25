@@ -48,7 +48,7 @@ public class AdaptateurAdapte extends RecyclerView.Adapter<AdaptateurAdapte.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Match match = mMatch.get(position);
         if (context instanceof ListeMatchs) {
-            db.collection("Equipes").document(Objects.requireNonNull(match.getEquipes().get("Equ1")))
+            /*db.collection("Equipes").document(Objects.requireNonNull(match.getEquipes().get("Equ1")))
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
@@ -61,15 +61,17 @@ public class AdaptateurAdapte extends RecyclerView.Adapter<AdaptateurAdapte.View
                         Log.d(TAG, "onSuccess: "+documentSnapshot.getData());
                         if ( documentSnapshot.get("classe")!=null) holder.equipe2.setText(Objects.requireNonNull(documentSnapshot.get("classe")).toString());
                         else holder.equipe2.setText("donnée indisponible");
-                    });
+                    });*/
         }
+        holder.equipe1.setText(Objects.requireNonNull(match.getNomEquipe1()));
+        holder.equipe2.setText(Objects.requireNonNull(match.getNomEquipe2()));
         holder.score.setText(String.format("%s:%s", match.getScore().get("Equ1"), match.getScore().get("Equ2")));
         if (match.getTermine()!=0){
             holder.itemView.setBackground(AppCompatResources.getDrawable(context,R.drawable.bords_bien_communistes));
         }
         holder.itemView.setOnClickListener(v->{
             if (context instanceof ListeMatchs){
-                ((ListeMatchs)context).lanceAct(match.getId());
+                ((ListeMatchs)context).lanceAct(match.getId(), match.getNomEquipe1(),match.getNomEquipe2());
             }
         });
     }

@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,7 +25,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class ListeMatchs extends AppCompatActivity {
 
@@ -38,39 +44,51 @@ public class ListeMatchs extends AppCompatActivity {
         poule = getIntent().getStringExtra("poule");
         String chemin = String.format("/Poules/%s/matchs",poule);
         List<Match> listeMatchs = new ArrayList<>();
+        Map<String,String> listeEquipes = new HashMap<>();
         RecyclerView recyclerView = findViewById(R.id.recyclage);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG, "onCreate: dddd"+db.collection(chemin).getPath());
-        db.collection(chemin).addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.w(TAG, "Listen failed.", error);
-                        return;
-                    }
-                    listeMatchs.clear();
-                    if (value != null) {
-                        for (QueryDocumentSnapshot document : value) {
-                            Log.d(TAG, "onCreate: "+document.getData());
-                            Match match = document.toObject(Match.class);
-                            match.setId(document.getId());
-                            listeMatchs.add(match);
-                            Log.d(TAG, document.getId() + " => " + document.getData());
+        db.collection(chemin).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                listeMatchs.clear();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    Match match = document.toObject(Match.class);
+                    match.setId(document.getId());
+                    listeMatchs.add(match);
+                }
+                db.collection("Equipes").whereEqualTo("poule", poule).get().addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task1.getResult()) {
+                            listeEquipes.put(document.getId(), Objects.requireNonNull(document.getData().get("classe")).toString());
                         }
+                        for (Match monMatch : listeMatchs){
+                            monMatch.setNomEquipe1(listeEquipes.get(monMatch.getEquipes().get("Equ1")));
+                            monMatch.setNomEquipe2(listeEquipes.get(monMatch.getEquipes().get("Equ2")));
+                        }
+                        AdaptateurAdapte adaptateurAdapte = new AdaptateurAdapte(this, listeMatchs);
+                        recyclerView.setAdapter(adaptateurAdapte);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task1.getException());
                     }
-                    AdaptateurAdapte adaptateurAdapte = new AdaptateurAdapte(this, listeMatchs);
-                    recyclerView.setAdapter(adaptateurAdapte);
                 });
-
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+        });
         ActionBar ab = (this.getSupportActionBar());
         if(ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
     }
 
-    public void lanceAct(String id){
+    public void lanceAct(String id, String nomEqu1, String nomEqu2 ){
         Intent intention = new Intent(this,ActiviteArbitrage.class);
         intention.putExtra("id",id);
         intention.putExtra("poule",poule);
+        intention.putExtra("nomEqu1",nomEqu1);
+        intention.putExtra("nomEqu2",nomEqu2);
         startActivity(intention);
     }
 

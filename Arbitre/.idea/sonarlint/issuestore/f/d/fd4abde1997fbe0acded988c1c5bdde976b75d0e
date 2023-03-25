@@ -1,2 +1,6 @@
 
-<	java:S131V""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
+c
+java:S1192,"FDefine a constant instead of duplicating this literal "poule" 3 times.(û€Àø8÷«¡¿ñ0
+t
+java:S3776&"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ž¨Œþÿÿÿÿ8¦¬¡¿ñ0
+C	java:S131h""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8¾¬¡¿ñ0

@@ -8,14 +8,14 @@ class laPoste {
     required this.firebaseFirestore,
   });
 
-  Stream<QuerySnapshot> prendNomPoules(String poule){
+  Future<QuerySnapshot<Map<String, dynamic>>> prendNomPoules(String poule){
     final PouleRef = firebaseFirestore.collection("Equipes");
     final demande = PouleRef.where("poule", isEqualTo:poule);
-    return demande.snapshots();
+    return demande.get();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> prendPoule(String poule){
-    return firebaseFirestore.collection("Poules").doc(poule).collection("matchs").snapshots();
+  Future<QuerySnapshot<Map<String, dynamic>>> prendPoule(String poule){
+    return firebaseFirestore.collection("Poules").doc(poule).collection("matchs").get();
   }
 
   Future<List<String>> getTerrains(List<String> listePoules) async {
@@ -59,6 +59,9 @@ class laPoste {
       },
       onError: (e) => print("Error getting document: $e"),
       );
+    }
+    if (mesPoules.length<6){
+      return ["Poule A","Poule B","Poule C","Poule D","Poule E","Poule F"];
     }
     return mesPoules;
   }

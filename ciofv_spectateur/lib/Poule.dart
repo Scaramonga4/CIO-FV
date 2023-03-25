@@ -40,8 +40,8 @@ class _Poule extends State<Poule>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Poules')), //Appel de la class MyAppBar
-      body:StreamBuilder<QuerySnapshot>(
-        stream: monPostier.prendPoule(widget.poule),
+      body:FutureBuilder<QuerySnapshot>(
+        future: monPostier.prendPoule(widget.poule),
         builder: (BuildContext context,
         AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {

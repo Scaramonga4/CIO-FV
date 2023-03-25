@@ -123,8 +123,8 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
           maxHeight: double.infinity,
           maxWidth: ppadding*30,
         ),
-      child: StreamBuilder<QuerySnapshot>(
-          stream: monPostier.prendNomPoules(poule),
+      child: FutureBuilder<QuerySnapshot>(
+          future: monPostier.prendNomPoules(poule),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {

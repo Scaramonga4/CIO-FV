@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
             intention.putExtra("poule","Poule_F");
             startActivity(intention);
         });
-        findViewById(R.id.finale).setOnClickListener(v->{
-            startActivity(new Intent(this,phaseFinale.class));
-        });
+        findViewById(R.id.finale).setOnClickListener(v-> startActivity(new Intent(this,phaseFinale.class)));
     }
 
 

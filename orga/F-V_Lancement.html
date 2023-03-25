@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Configuration Finale</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <h1>Configuration finale</h1>
+        <form onsubmit="return Enregistre()" action="">
+            <div id="separe">
+                <div style="width: 50%;">
+                    <label for="Poule_A">Terrain Poule A</label>
+                    <input class="choixT" type="text" id="Poule_A"  placeholder="localisation du terrain" required>
+                
+                    <label for="Poule_B">Terrain Poule B</label>
+                    <input class="choixT" type="text" id="Poule_B"  placeholder="localisation du terrain" required>
+
+                    <label for="Poule_C">Terrain Poule C</label>
+                    <input class="choixT" type="text" id="Poule_C" placeholder="localisation du terrain" required>
+
+                    <label for="Poule_D">Terrain Poule D</label>
+                    <input class="choixT" type="text" id="Poule_D" placeholder="localisation du terrain" required>
+
+                    <label for="Poule_E">Terrain Poule E</label>
+                    <input class="choixT" type="text" id="Poule_E" placeholder="localisation du terrain" required>
+
+                    <label for="Poule_F">Terrain Poule F</label>
+                    <input class="choixT" type="text" id="Poule_F"  placeholder="localisation du terrain" required>
+                </div>
+                <div class="tablePt">
+                    <label for="victoire">Victoires</label>
+                    <input type="number" id="victoire" placeholder="points victoire" required>
+                    <label for="defaite">Défaite</label>
+                    <input type="number" id="defaite" placeholder="points défaite" required>
+                    <label for="egalite">Egalité</label>
+                    <input type="number" id="egalite" placeholder="points égalité" required>
+                    <label for="forfait">Forfait</label>
+                    <input type="number" id="forfait" placeholder="points défaite" required>
+                </div>
+            </div>
+            <button type="submit">LANCER LA FETE DU VOLLEY 2023</button>
+        </form>  
+    </body>
+    <script src="F-V_Lancement.js"> </script>
+</html>

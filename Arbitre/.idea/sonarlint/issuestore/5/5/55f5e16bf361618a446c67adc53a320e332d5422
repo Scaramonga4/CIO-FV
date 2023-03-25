@@ -1,3 +1,6 @@
 
-b
-java:S11927"GDefine a constant instead of duplicating this literal "classe" 4 times.(åƒ•üÿÿÿÿ
+s
+java:S1450 "QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ8¶¼™¿ñ0
+X	java:S1255"<This block of commented-out lines of code should be removed.(ù‰Õ8Â¼™¿ñ0
+H
+java:S1068 "&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8Ì¼™¿ñ0

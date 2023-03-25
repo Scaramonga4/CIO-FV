@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Tableau de bord</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <h1>Tableau de bord</h1>
+        <div id="grille_de_controlle">
+            <h3>Matchs en cours</h3>
+            <h3>En attente de validation</h3>
+            <h3>Terminés</h3>
+            <div id="matchs_pas_termine" class="liste_matchs">
+            
+            </div>
+            <div id="matchs_valide" class="liste_matchs">
+
+            </div>
+            <div id="matchs_termine" class="liste_matchs">
+
+            </div>
+        </div>
+        <div id="pop_match" class="modal">
+            <form class="modal-content" onsubmit="return changeMatch()" autocomplete="on">
+                <div class="container">
+                <h1>Controller le match</h1>
+                <div class="petite_grille">
+                    <input type = "number" id="score1" value="-1"><p> : </p><input type = "number" id="score2" value = "-1">
+                    <p id="equ1">Equipe1</p><p> VS </p><p id="equ2">Equipe2</p>
+                </div>
+                <h3>Issue: </h3>
+                <div class="radio">
+                    <label class="container2">Victoire Equipe 1
+                        <input type="radio" checked="checked" class="rad" id="v1">
+                      </label>
+                      <label class="container2">Vitoire Equipe 2
+                        <input type="radio" id="v2" class="rad">
+                      </label>
+                      <label class="container2">Egalite
+                        <input type="radio" id="eg" class="rad">
+                      </label>
+                      <label class="container2">Forfait Equipe 1
+                        <input type="radio" id="f1" class="rad">
+                      </label>
+                      <label class="container2">Forfait Equipe 2
+                        <input type="radio" id="f2" class="rad">
+                      </label>
+                </div>
+                <label>Confirmer le match</label><input id="verif"type="checkbox">
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn" onclick="document.getElementById('pop_match').style.display='none'">Annuler</button>
+                    <button class="enrbtn" id="enr_nouv" type="submit">Enregistrer</button>
+                </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="snackbar">Enregistré!</div>
+        <script src="F-V_tableau_bord.js"> </script>
+    </body>
+</html>

@@ -10,6 +10,11 @@ public class Match {
     private String commentaire;
     private Map<String, Integer> score;
     private Map <String,String> equipes;
+
+    private String nomEquipe1;
+
+    private String nomEquipe2;
+
     private Integer termine;
 
     private String terrain;
@@ -94,6 +99,22 @@ public class Match {
 
     public String getTerrain() {
         return terrain;
+    }
+
+    public String getNomEquipe2() {
+        return nomEquipe2==null?"inconnu au bataillon": nomEquipe2;
+    }
+
+    public void setNomEquipe2(String nomEquipe2) {
+        this.nomEquipe2 = nomEquipe2;
+    }
+
+    public String getNomEquipe1() {
+        return nomEquipe1==null?"inconnu au bataillon": nomEquipe1;
+    }
+
+    public void setNomEquipe1(String nomEquipe1) {
+        this.nomEquipe1 = nomEquipe1;
     }
 }
 

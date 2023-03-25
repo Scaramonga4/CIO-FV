@@ -110,7 +110,8 @@ function enr_matchs(){
                 "passage" : null,
                 score: {"Equ1": 0, "Equ2": 0},
                 "termine":0,
-                "commentaire":""
+                "commentaire":"",
+                "verif":false
             }).then((value)=> {
                 console.log(value)
                 match.id = value.id

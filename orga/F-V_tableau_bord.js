@@ -12,33 +12,40 @@ firebase.initializeApp(firebaseConfig); //initialise le projet
 const db = firebase.firestore();
 
 const poules = ["Poule_A","Poule_B","Poule_C","Poule_D","Poule_E","Poule_F"]
+var finale;
 var liste_equipes = {};
 var poule_equipe = {}
-
+var drapeau = ""
+var drapeau2 = ""
 var mesMatchsAConfirmer = {}
+var idEqu1= ""
+var idEqu2 = ""
 
 function RecupEquipes(){
-    db.collection("/Equipes").get().then((snapshot)=>{
-        console.log("lit",snapshot)
-        snapshot.docChanges().forEach(function(change, indi, liste) {
-            if (change.type === "added") {
-                liste_equipes[change.doc.id] = change.doc.data().classe??"inconnu au bataillon"
-                //poule_equipe[change.doc.id] = indice
-            }
-            if (change.type === "modified") {
-                //A FAIRE
-            }
-            if (change.type === "removed") {
-                //A FAIRE
-            }
-            if (indi === liste.length - 1)recuperationDesMatchs();
+    if(finale==null){
+        db.collection("/Equipes").get().then((snapshot)=>{
+            console.log("lit",snapshot)
+            snapshot.docChanges().forEach(function(change, indi, liste) {
+                if (change.type === "added") {
+                    liste_equipes[change.doc.id] = change.doc.data().classe??"inconnu au bataillon"
+                }
+                if (indi === liste.length - 1)recuperationDesMatchs();
+            });
         });
-        if(snapshot.length==null){
-            //document.getElementById(poules[indice]).innerHTML = "";
-        }
-        
-    }); 
+    }else{
+        db.collection("/Equipes").where("finale", "==", finale).get().then((snapshot)=>{
+            console.log("litF",snapshot)
+            snapshot.docChanges().forEach(function(change, indi, liste) {
+                if (change.type === "added") {
+                    liste_equipes[change.doc.id] = change.doc.data().classe??"inconnu au bataillon"
+                }
+                if (indi === liste.length - 1)recuperationDesMatchs();
+            });
+        });
+    }
 }
+
+
 function recuperationDesMatchs(){
     var equipe = document.createElement("span");
     var typeMatch = document.createElement("div");
@@ -50,9 +57,15 @@ function recuperationDesMatchs(){
     document.getElementById("matchs_valide").innerHTML = ""
     document.getElementById("matchs_termine").innerHTML = ""
     for (var indice = 0; indice<poules.length ;indice++){
+        console.log(poules[indice])
         const maP = poules[indice]
-        db.collection("/Poules").doc(maP).collection("matchs").get().then((snapshot)=>{
+        let chemin;
+        if (finale==null) chemin="/Poules/"+maP+"/matchs"
+        else chemin = "/Poules/finale/"+finale
+        db.collection(chemin).get().then((snapshot)=>{
+            
             snapshot.docChanges().forEach((change) => {
+                console.log(change.doc.data())
                 var match = change.doc.data();
                 if (change.type === "added") {
                     var monMatch = typeMatch.cloneNode(true);
@@ -72,10 +85,7 @@ function recuperationDesMatchs(){
                     monMatch.appendChild(p.cloneNode(true))
                     monMatch.appendChild(Score2)
                     monMatch.appendChild(equ2) 
-                    console.log(maP)
-                    monMatch.addEventListener("click", function(e){
-                        ouvreMatch(maP,monMatch.id);
-                    })
+                    monMatch.addEventListener("click",function(e){ouvreMatch(maP,monMatch.id)},false)
                     if (match.termine??0 != 0){
                         colorie(equ1,equ2,match.termine??4)
                         if(match.verif??false){
@@ -89,7 +99,6 @@ function recuperationDesMatchs(){
                     }
                 }
                 if (change.type === "modified") {
-                    console.log(change.doc.id)
                     var monMatch = document.getElementById(change.doc.id);
                     monMatch.getElementsByClassName(1)[0].innerHTML = match.score.Equ1??"--:--"
                     monMatch.getElementsByClassName(2)[0].innerHTML = match.score.Equ2??"--:--"
@@ -108,6 +117,7 @@ function recuperationDesMatchs(){
                 }
             });
         });
+        if (finale!=null)break;
     }
 }
 
@@ -129,25 +139,93 @@ function colorie(equ1,equ2,res){
 
 function ouvreMatch(poule, id){
     document.getElementById("pop_match").style.display='block';
-    console.log(poule,id)
-    db.collection("Poules").doc(poule).collection("matchs").doc(id).get().then((value)=>{
-        console.log(value)
+    if (finale==null)drapeau = "Poules/"+poule+"/matchs/"+id;
+    else drapeau = "Poules/finale/"+finale+"/"+id;
+    drapeau2 = id;
+    db.doc(drapeau).get().then((value)=>{
         var mach = value.data();
+        idEqu1 = mach.equipes.Equ1
+        idEqu2 = mach.equipes.Equ2
         document.getElementById("score1").value = mach.score.Equ1??"-1"
         document.getElementById("score2").value = mach.score.Equ2??"-1"
-        document.getElementById("equ1").innerHTML = liste_equipes[mach.equipes.Equ1];
-        document.getElementById("equ2").innerHTML = liste_equipes[mach.equipes.Equ2];
+        document.getElementById("equ1").innerHTML = liste_equipes[idEqu1];
+        document.getElementById("equ2").innerHTML = liste_equipes[idEqu2];
         const mesbtnRadios = document.getElementsByClassName("rad")
         for (let i = 0; i<mesbtnRadios.length; i++){
             mesbtnRadios[i].checked=false;
         }
         if ((mach.termine??0 >0) && (mach.termine??0 <5)){
-            mesbtnRadios[(mach.termine??0) +1].checked = true;
+            mesbtnRadios[(mach.termine??0) -1].checked = true;
         }
-        if (mach.verif??false)document.getElementById("verif").checked=true
-        else document.getElementById("verif").checked=false
+        if (mach.verif??false){
+            drapeau2 = "";
+            document.getElementById("verif").checked=true
+        }
+        else {
+            drapeau2 = "id";
+            document.getElementById("verif").checked=false
+        }
     })
 }
 
 
+function changeMatch(){
+    let termine = 0;
+    const mesbtnRadios = document.getElementsByClassName("rad")
+        for (let i = 0; i<mesbtnRadios.length; i++){
+            if(mesbtnRadios[i].checked==true)termine = i+1
+        }
+    if (document.getElementById("verif").checked && drapeau2.length>0){
+        
+        db.collection("Equipes").doc(idEqu1).update({
+            "victoires":firebase.firestore.FieldValue.increment(termine==1?1:0),
+            "egalite":firebase.firestore.FieldValue.increment(termine==3?1:0),
+            "defaites":firebase.firestore.FieldValue.increment((termine!=3 && termine!=1)?1:0),
+            "goalaverage":firebase.firestore.FieldValue.increment(document.getElementById("score1").value-document.getElementById("score2").value)
+        })
+    }
+    db.doc(drapeau).update({
+        "score":{
+            "Equ1":document.getElementById("score1").value,
+            "Equ2":document.getElementById("score2").value
+        },
+        "termine":termine,
+        "verif":document.getElementById("verif").checked
+
+    }).then(() => {
+        notifie("Enregistré !")
+    })
+    .catch((error) => {
+        // The document probably doesn't exist.
+        notifie("Une erreur est survenue")
+        console.error("Error updating document: ", error);
+    });
+    document.getElementById('pop_match').style.display='none'
+    return false;
+}
+
+
+function notifie(msg){
+    var notif = document.getElementById("snackbar");
+    notif.textContent=msg;
+    notif.className = "show";
+    setTimeout(function(){ notif.className = notif.className.replace("show", ""); }, 3000);
+}
+
+
+/*ICI-------------------*/
+
+if (sessionStorage.getItem("poules")!=null){
+    finale = sessionStorage.getItem("poules")
+}
 RecupEquipes();
+
+
+document.getElementById("vers_finale").addEventListener("click",function(e){
+    db.collection("Parametres").doc("etat").update({
+        "finale":true
+    }).then(()=>{
+        document.location.href = "F-V_ConfigFinale.html";
+    })
+
+})

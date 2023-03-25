@@ -10,7 +10,7 @@
     </head>
     
     <body>
-        <h1>Tableau de bord</h1>
+        <div class="radio"><h1>Tableau de bord</h1><button id="vers_finale" class="petit">Lancer la phase finale</button></div>
         <div id="grille_de_controlle">
             <h3>Matchs en cours</h3>
             <h3>En attente de validation</h3>
@@ -36,25 +36,25 @@
                 <h3>Issue: </h3>
                 <div class="radio">
                     <label class="container2">Victoire Equipe 1
-                        <input type="radio" checked="checked" class="rad" id="v1">
+                        <input type="radio" name="group1" checked="checked" class="rad" id="v1">
                       </label>
                       <label class="container2">Vitoire Equipe 2
-                        <input type="radio" id="v2" class="rad">
+                        <input type="radio" name="group1" id="v2" class="rad">
                       </label>
                       <label class="container2">Egalite
-                        <input type="radio" id="eg" class="rad">
+                        <input type="radio" name="group1"id="eg" class="rad">
                       </label>
                       <label class="container2">Forfait Equipe 1
-                        <input type="radio" id="f1" class="rad">
+                        <input type="radio" name="group1" id="f1" class="rad">
                       </label>
                       <label class="container2">Forfait Equipe 2
-                        <input type="radio" id="f2" class="rad">
+                        <input type="radio" name="group1" id="f2" class="rad">
                       </label>
                 </div>
                 <label>Confirmer le match</label><input id="verif"type="checkbox">
                 <div class="clearfix">
                     <button type="button" class="cancelbtn" onclick="document.getElementById('pop_match').style.display='none'">Annuler</button>
-                    <button class="enrbtn" id="enr_nouv" type="submit">Enregistrer</button>
+                    <button class="enrbtn" id="verif_match" type="submit">Enregistrer</button>
                 </div>
                 </div>
             </form>

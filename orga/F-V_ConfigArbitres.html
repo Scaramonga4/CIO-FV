@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Création des poules</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <div style="display: flex;">
+            <h1 style="flex: auto;">Répartition des arbitres</h1>
+            <button class="petit" id="conf_arb">Confirmer</button>
+        </div>
+        
+        <div id="separe">
+            <div id="list_Equipes" class="Liste_Equipes_defil ">
+                <h3>Liste des arbitres</h3>  
+                <!--Pour mettre les équipes-->
+                <p id="vide"> Aucun arbitre inscit</p>
+            </div>
+            
+            <div class="" id = "div_poules">
+                <div id="Poule_A" class="poule" ><p>poule A</p></div>
+                <div id="Poule_B" class="poule" ><p>poule B</p></div>
+                <div id="Poule_C" class="poule" ><p>poule C</p></div>
+                <div id="Poule_D" class="poule" ><p>poule D</p></div>
+                <div id="Poule_E" class="poule" ><p>poule E</p></div>
+                <div id="Poule_F" class="poule" ><p>poule F</p></div>
+            </div>
+        </div>
+        <div id="snackbar">Enregistré!</div>
+        <script src="F-V_ConfigArbitres.js"> </script>
+    </body>
+</html>

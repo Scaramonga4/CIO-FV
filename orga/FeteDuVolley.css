@@ -17,6 +17,7 @@ body{
 h1{
     text-align : center;
     margin-top : 0,2em;
+    flex: auto;
 }
 
 h3{
@@ -69,7 +70,7 @@ button:hover{
 }
 
 input{
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(196, 195, 195);
     width:88%;
     margin:10px;
     padding: 10px;
@@ -179,6 +180,20 @@ li:hover{
     border : 2px red solid;
     border-radius: 15px;
     background-color: #dedcdc;
+}
+
+.Arbitre{
+    width: 150px;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    font-size: 17px;
+    border : 2px lightgreen dashed;
+    border-radius: 15px;
+    background-color: #eaeaea;
 }
 
 .Equipe:hover{
@@ -341,6 +356,7 @@ li:hover{
 
 .radio{
     display: flex;
+    align-items: center;
 }
 
 .marge{
@@ -352,6 +368,26 @@ li:hover{
     width: auto;
     min-height: 20px;
 }
+/*-----------------------*/
+
+.contient{
+    min-width: 200px;
+    min-height: 60px;
+    border: 2px black solid;
+    border-radius: 2px;
+    margin: 10px;
+    margin-left: 15px;
+}
+
+.liste_match_finale{
+    width: 100%;
+    
+}
+
+
+
+
+
 
 /*-------------------bouton radios*/
 

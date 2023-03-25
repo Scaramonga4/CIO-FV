@@ -49,6 +49,11 @@ function Enregistre(){
             "forfait":document.getElementById("forfait").value
         })
         console.log(document.getElementById("forfait").value)
+        const chemin3 = db.collection("Parametres").doc(etat)
+        transaction.update(chemin3,{
+            lancement:true
+        })
+
         return Promise.resolve('transaction complete')
     }).then(() => {
         document.location.href = "F-V_tableau_bord.html";

@@ -11,9 +11,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig); //initialise le projet
 const db = firebase.firestore();
 
-var div_equipe;
-
-
 
 function RecupEquipes(){
     db.collection("/Equipes").get().then((snapshot)=>{
@@ -127,7 +124,7 @@ document.getElementById("enr_poules").addEventListener('click', function(e){
 
 document.getElementById("conf_poules").addEventListener('click', function(e){
     if(enregistreEquipes){
-        if (document.getElementById("list_Equipes").childNodes.length<8)document.location.href = "F-V_ConfigMatchs.html";
+        if (document.getElementById("list_Equipes").childNodes.length<8)document.location.href = "F-V_ConfigArbitres.html";
         else notifie("Veuillez placer toutes les équipes dans une poule")   
     }else{
         notifie("Une erreur est survenue")

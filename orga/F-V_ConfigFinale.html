@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Configuration de la finale</title>
+        <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <div style="display: flex;">
+            <h1 style="flex: auto;">Configuration de la finale</h1>
+            <!--<button class="petit" id ="enr_poules">Enregistrer</button>-->
+            <button class="petit" id="lance_phase">Lancer la phase</button>
+        </div>
+        
+        <div id="separe">
+            <div id="list_Equipes" class="Liste_Equipes_defil">
+                <h3>Liste des équipes</h3>  
+                <!--Pour mettre les équipes-->
+                <p id="vide"> Aucune équipe en lice</p>
+            </div>
+            <div class="liste_match_finale">
+            </div>
+        <div id="snackbar">Enregistré!</div>
+        <script src="F-V_ConfigFinale.js"> </script>
+    </body>
+</html>

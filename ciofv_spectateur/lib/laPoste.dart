@@ -66,4 +66,8 @@ class laPoste {
     return mesPoules;
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> prendMatch(String poule, String id) {
+    return firebaseFirestore.collection("Poules").doc(poule).collection(
+        "matchs").doc(id).snapshots();
+  }
 }

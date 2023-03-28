@@ -38,12 +38,12 @@ function enregistreEquipes(){
         db.collection("/Poules").doc(poules[i].id).update({
             "arbitres": liste   
         }).then(() => {
-            if(i == poules.length-1)return true; 
+            if(i == poules.length-1) document.location.href = "F-V_ConfigMatchs.html";
             console.log("Document successfully updated!");
         })
         .catch((error) => {
             console.error("Error updating document: ", error);
-            return false
+            notifie("Une erreur est survenue")  
         });
     }
 }
@@ -111,8 +111,7 @@ if(document.getElementsByClassName("Liste_Equipes_défil") == ""){
 
 document.getElementById("conf_arb").addEventListener('click', function(e){
     if(document.getElementById("list_Equipes").childNodes.length<8){
-        if(enregistreEquipes) document.location.href = "F-V_ConfigMatchs.html";
-        else  notifie("Une erreur est survenue")  
+        enregistreEquipes()
     }else{
         notifie("Veuillez placer toutes les équipes dans une poule")
     }

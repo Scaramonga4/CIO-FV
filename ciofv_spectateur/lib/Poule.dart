@@ -59,7 +59,6 @@ class _Poule extends State<Poule>{
                 Center(
                   child:Text("terrain: "+widget.Terrain,style:TextStyle(fontSize:16, fontStyle: FontStyle.italic)),
                   ),
-
                 ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -111,8 +110,8 @@ class _Poule extends State<Poule>{
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
                             colors:[
-                              etat==0?Colors.grey:etat==1?Colors.green:Colors.red,
-                              etat==0?Colors.grey:etat==2?Colors.green:Colors.red,
+                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==1?Colors.lightGreen:Colors.grey,
+                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==2?Colors.lightGreen:Colors.grey,
                             ],
                           stops: [0.45,0.55]
                         )

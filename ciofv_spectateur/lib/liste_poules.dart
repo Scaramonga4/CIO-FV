@@ -154,24 +154,20 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
 
   Widget construitEquipe(int index, QueryDocumentSnapshot<Object?>? doc) {
     if (doc != null && doc.get("classe")!=null) {
-      return Container(padding: const EdgeInsets.all(2),
+      return Padding(padding: EdgeInsets.all(ppadding),
+      child:Container(padding: EdgeInsets.all(5),
         width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
+          color: Colors.grey,
         ),
-        child: Center(
-          child:ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(2)
-                //minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
-              ),
-            onPressed: ()=>Navigator.of(context).push(versMaPoule(index)),
-            child:Text(
-                doc.get("classe"),
-                //style: const TextStyle(fontSize: 18),
+            child: Center(
+              child:Text(
+                  doc.get("classe"),
+                  //style: const TextStyle(fontSize: 18),
+              )
             )
-          )
-        ),);
+      ));
     }else{
       return const Text("équipe indisponible");
     }

@@ -1,7 +1,7 @@
 
 
 
-
+/*
 import 'package:ciofv_spectateur/barre_appli.dart';
 import 'package:flutter/material.dart';
 
@@ -67,4 +67,4 @@ DataColumn(label: Text('Points')),
   ];
 
   */
-)
+)*/

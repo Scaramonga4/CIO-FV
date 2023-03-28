@@ -36,7 +36,7 @@ function RecupEquipes(){
     }); 
 }
 
-function enregistreEquipes(){
+function enregistreEquipes(fin = false){
     var equipes = document.getElementsByClassName("Equipe");
     for(var i = 0; i < equipes.length; i++) {
         (function(index) {
@@ -45,11 +45,17 @@ function enregistreEquipes(){
                 poule: parent.id == "list_Equipes"? null:parent.id
             })
             .then(() => {
-                if(index = equipes.length-1)return true; 
-                console.log("Document successfully updated!");
+                if(index == equipes.length-1){
+                    notifie("Enregistré !");
+                    if (fin){
+                        if (document.getElementById("list_Equipes").childNodes.length<8) document.location.href = "F-V_ConfigArbitres.html";
+                        else notifie("Veuillez placer toutes les équipes dans une poule")   
+                    }
+                }
             })
             .catch((error) => {
-                console.error("Error updating document: ", error);
+                notifie("Une erreur est survenue")
+                console.log("Error updating document: ", error);
                 return false
             });
         })(i); 
@@ -95,6 +101,10 @@ document.addEventListener("drop", function(event) {
     }else if(event.target.classList.contains("Liste_Equipes_defil")){
         var data = event.dataTransfer.getData("Equipe");
         event.target.appendChild(document.getElementById(data));
+    }else if (event.target.parentNode.classList.contains("poule")){
+        event.target.parentNode.classList.remove("Survole");
+        var data = event.dataTransfer.getData("Equipe");
+        event.target.parentNode.appendChild(document.getElementById(data));
     }else{
         var data = event.dataTransfer.getData("Equipe");
         document.getElementById("list_Equipes").appendChild(document.getElementById(data));
@@ -117,16 +127,9 @@ if(document.getElementsByClassName("Liste_Equipes_défil") == ""){
 }
 
 document.getElementById("enr_poules").addEventListener('click', function(e){
-    if(enregistreEquipes())notifie("Enregistré !")
-    else notifie("Une erreur est survenue")
-    
+    if(enregistreEquipes());
 })
 
 document.getElementById("conf_poules").addEventListener('click', function(e){
-    if(enregistreEquipes){
-        if (document.getElementById("list_Equipes").childNodes.length<8)document.location.href = "F-V_ConfigArbitres.html";
-        else notifie("Veuillez placer toutes les équipes dans une poule")   
-    }else{
-        notifie("Une erreur est survenue")
-    }
+    enregistreEquipes(true)
 })

@@ -65,8 +65,10 @@ function RecupMatchs(indice){
                 monMatch.className = "match";
                 var equ1 = selct1.cloneNode(true);
                 var equ2 = selct1.cloneNode(true);
-                if (match.equipes.Equ1!=null)equ1.value = liste_equipes[match.equipes.Equ1];
-                if (match.equipes.Equ2!=null)equ2.value = liste_equipes[match.equipes.Equ2];
+                if (match.equipes.Equ1!=null && poule_equipe[match.equipes.Equ1]==indice)equ1.value = liste_equipes[match.equipes.Equ1];
+                else equ1.value = defaut.text
+                if (match.equipes.Equ2!=null && poule_equipe[match.equipes.Equ2] == indice)equ2.value = liste_equipes[match.equipes.Equ2];
+                else equ2.value = defaut.text
                 equ1.classList+=" 1"
                 equ2.classList+=" 2"
                 monMatch.appendChild(equ1);
@@ -86,7 +88,8 @@ function RecupMatchs(indice){
 
 function enr_matchs(){
     var mesMatchs = document.getElementsByClassName("match")
-    for(const match of mesMatchs){
+    for(let i =0; i< mesMatchs.length;i++){
+        const match = mesMatchs[i]
         var parent = match.parentNode
         let Mequ1 = match.getElementsByClassName("1")[0]
         let equ1 = Mequ1.options[Mequ1.selectedIndex].text
@@ -94,28 +97,37 @@ function enr_matchs(){
         let equ2 = Mequ2.options[Mequ2.selectedIndex].text
         //console.log(match, parent)
         if (match.id!= null && match.id!=""){
-            db.collection("/Poules").doc(parent.id).collection("matchs").doc(match.id).set({
+            db.collection("/Poules").doc(parent.id).collection("matchs").doc(match.id).update({
                 "equipes" : {
                     "Equ1": equ1 == defaut.text?null:getKeyByValue(liste_equipes,equ1),
                     "Equ2": equ2 == defaut.text?null:getKeyByValue(liste_equipes,equ2)
                 }
-            })
+            }).then((value)=>{
+                console.log("enregistré")
+                if(i==mesMatchs.length-1)notifie("Enregistré!")
+            }).catch((error) => {
+                notifie("une erreur est survenue")
+                console.log("Transaction failed: ", error);
+            });
         }else{
             db.collection("/Poules").doc(parent.id).collection("matchs").add({
                 "equipes" : {
                     "Equ1": equ1 == defaut.text?null:getKeyByValue(liste_equipes,equ1),
-                    "Equ2": equ2 == defaut.text?null:getKeyByValue(liste_equipes,equ2)
+                    "Equ2": equ2 == defaut.text?null:getKeyByValue(liste_equipes,equ2),
                 },
                 "heure" : "",
                 "passage" : 0,
-                score: {"Equ1": 0, "Equ2": 0},
+                "score": {"Equ1": 0, "Equ2": 0},
                 "termine":0,
                 "commentaire":"",
                 "verif":false
             }).then((value)=> {
                 console.log(value)
                 match.id = value.id
-            })
+            }).catch((error) => {
+                notifie("une erreur est survenue")
+                console.log("Transaction failed: ", error);
+            });
 
         }
     }
@@ -123,6 +135,13 @@ function enr_matchs(){
     for (var indice = 0; indice<poules.length; indice++){
 
     }
+}
+
+function notifie(msg){
+    var notif = document.getElementById("snackbar");
+    notif.textContent=msg;
+    notif.className = "show";
+    setTimeout(function(){ notif.className = notif.className.replace("show", ""); }, 3000);
 }
 
 

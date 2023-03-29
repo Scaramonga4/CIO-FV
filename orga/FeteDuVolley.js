@@ -28,7 +28,7 @@ function RecupEquipes(){
                 document.getElementById("Liste_Equipes").innerHTML += Equipe;
             }
             if (change.type === "modified") {
-                document.getElementById(change.doc.id).innerHTML = classe;
+                document.getElementById(change.doc.id).innerHTML = `${classe} <span class="closebtn" onclick="suprEquipe(this.parentElement.id)">&times;</span>`;
             }
             if (change.type === "removed") {
                 Nombre_Equipes -= 1;
@@ -122,8 +122,13 @@ function nouvJoueur(nom){
     var nouvDiv = document.createElement("div");
     nouvDiv.id=(nom)
     nouvDiv.className="maChips"
-    nouvDiv.innerHTML=`${nom} <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>`;
+    nouvDiv.innerHTML=`${nom} <span class="closebtn" onclick="suprJoueur(this.parentNode.id)">&times;</span>`;
     listJoueurs.appendChild(nouvDiv);
+}
+
+function suprJoueur(id){
+    var liste = document.getElementById("liste_joueurs");
+    liste.removeChild(document.getElementById(id))
 }
 
 function Confirm_Equipe() {

@@ -45,7 +45,9 @@ class _Poule extends State<Poule>{
         builder: (BuildContext context,
         AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
-            return Column(
+            return ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
               children: [
                 Padding(
                     padding: const EdgeInsets.only(
@@ -54,7 +56,7 @@ class _Poule extends State<Poule>{
                       right: 40,
                       bottom: 5,
                     ),
-                    child: Text(widget.nomPoule, style: TextStyle(fontSize: 20),)
+                    child: Text(widget.nomPoule, style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
                 ),
                 Center(
                   child:Text("terrain: "+widget.Terrain,style:TextStyle(fontSize:16, fontStyle: FontStyle.italic)),
@@ -81,13 +83,14 @@ class _Poule extends State<Poule>{
     );
   }
 
-  Widget construitMatch(int index, DocumentSnapshot? doc) {
-    if (doc != null) {
-      Map<String, dynamic> score = doc.get("score") ?? {"Equ1": 0, "Equ2": 0};
-      final etat = doc.get("termine") ?? 0;
+  Widget construitMatch(int index, DocumentSnapshot? docum) {
+    if (docum != null) {
+      final doc = docum.data() as Map<String, dynamic>;
+      Map<String, dynamic> score = doc["score"] ?? {"Equ1": 0, "Equ2": 0};
+      final etat = doc["termine"] ?? 0;
       var date;
-      if (doc.get("heure")!=null) {
-        final x = doc.get('heure') as Timestamp;
+      if (doc["heure"]!=null) {
+        final x = doc['heure'] as Timestamp;
         final maDate = DateTime.parse(x.toDate().toString());
         date = maDate.hour.toString()+ "h"+maDate.minute.toString();
       }else {
@@ -95,14 +98,14 @@ class _Poule extends State<Poule>{
       }
         return FutureBuilder(
             future: monPostier.nomEquipes(
-                doc.get("equipes") ?? {"Equ1": "null", "Equ2": "null"}),
+                doc["equipes"] ?? {"Equ1": "null", "Equ2": "null"}),
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<String, dynamic> equipes = snapshot.data as Map<String, dynamic>;
                 return Padding(
                     padding: EdgeInsets.all(5),
                     child:GestureDetector(
-                        onTap: ()=> Navigator.of(context).push(versMonMatch(doc.id)),
+                        onTap: ()=> Navigator.of(context).push(versMonMatch(docum.id)),
                         child:Container(
                     decoration: new BoxDecoration(
                         borderRadius: new BorderRadius.circular(16.0),

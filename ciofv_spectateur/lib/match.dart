@@ -53,22 +53,27 @@ class _Match extends State<Match>{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Poules')), //Appel de la class MyAppBar
-        body: ListView(
+        body: Padding(padding: const EdgeInsets.all(8),
+          child:ListView(
           children: [
+            Center(
+              child:
             Padding(
               padding: EdgeInsets.fromLTRB(5,10,5,10),
-                child:Text(widget.Terrain,style: TextStyle(fontSize: 22))),
+                child:Text(widget.Terrain,style: TextStyle(fontSize: 22))),),
+            Center(
+              child:
             Padding(
               padding: EdgeInsets.fromLTRB(5,10,5,20),
                child:Text("heure de début: "+heure,style: TextStyle(fontSize: 17, fontStyle: FontStyle.italic)),
-            ),
+            ),),
             Container(
               width: double.infinity,
               child:Row(
                 children: [
-                  new Expanded(child: Text(Equ1, style: TextStyle(fontSize: 20),textAlign: TextAlign.center,), flex: 1,),
+                  new Expanded(child: Text(equipe_1.classe.toString(), style: TextStyle(fontSize: 20),textAlign: TextAlign.center,), flex: 1,),
                   new Expanded(child: const Text(" VS ", style:TextStyle(fontSize: 20),textAlign: TextAlign.center,), flex: 0,),
-                  new Expanded(child: Text(Equ2 , style:TextStyle(fontSize: 20),textAlign: TextAlign.center,), flex: 1,)
+                  new Expanded(child: Text(equipe_2.classe.toString(), style:TextStyle(fontSize: 20),textAlign: TextAlign.center,), flex: 1,)
                 ],
             )),
           Padding(
@@ -83,47 +88,32 @@ class _Match extends State<Match>{
                 ],)
               )
             ),
-            GridView.count(
-              childAspectRatio: 4.0,
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
+            Row(
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.all(8),
-                  child: Text("Devise", textAlign: TextAlign.center,style: TextStyle(fontStyle : FontStyle.italic,fontSize: 18)),
+                  child: Text(equipe_1.devise.toString(), textAlign: TextAlign.center,style: TextStyle(fontStyle : FontStyle.italic,fontSize: 18)),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  child: Text('Devise', textAlign: TextAlign.center,style: TextStyle(fontStyle : FontStyle.italic,fontSize: 18)),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.teal[300],
-                  child: const Text('X ou rien'),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.teal[400],
-                  child: const Text('Ben voyons'),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.teal[500],
-                  child: const Text('Compo'),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.teal[600],
-                  child: const Text('meilleure compo'),
-                ),
+                  child: Text(equipe_2.devise.toString(), textAlign: TextAlign.center,style: TextStyle(fontStyle : FontStyle.italic,fontSize: 18)),
+                ),]),
+            Row(
+              children:<Widget>[
+                new Expanded(child:Text("Capitaine: "+equipe_1.capitaine.toString(), textAlign: TextAlign.center,style: TextStyle(fontSize: 18),),flex: 1,),
+                new Expanded(child:Text("Capitaine: "+equipe_2.capitaine.toString(), textAlign: TextAlign.center,style: TextStyle(fontSize: 18),),flex: 1,),
+                ]),
+            Container(
+            padding: const EdgeInsets.all(8),
+            decoration: new BoxDecoration(color: Colors.blue[200],borderRadius: BorderRadius.all(Radius.circular(10))),
+            child:Row(
+              children:<Widget>[
+                new Expanded(child:Text("Joueurs : \n"+equipe_1.joueurs.toString(),style: TextStyle(fontSize: 18),)),
+                new Expanded(child:Text("Joueurs : \n"+equipe_2.joueurs.toString(),style: TextStyle(fontSize: 18),),),
               ],
-            )
+            ))
         ])
-    );
+    ));
   }
 
   litMatchs(){
@@ -146,8 +136,8 @@ class _Match extends State<Match>{
             setState(() {
               print(score1);
               print(score2);
-              score1 = score["Equ1"]??"0";
-              score2 = score["Equ2"]??"0";
+              score1 = score["Equ1"].toString()??"0";
+              score2 = score["Equ2"].toString()??"0";
             });
             litEquipe(event.data()!["equipes"]??{"Equ1":"inconnu","Equ2":"inconnu"});
           }
@@ -156,29 +146,20 @@ class _Match extends State<Match>{
     );
   }
 
-  void litEquipe(equipes) {
-    String equ1 =equipes["Equ1"];
-    String equ2 =equipes["Equ2"];
-    var snap = monPostier.prendEquipe(equ1);
-    snap.then((DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        setState(() {
-          Equ1 = data["classe"]??"inconnu au bataillon";
-          devise1 = data["devise"]??"...";
-        });
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
-    var snap2 = monPostier.prendEquipe(equ2);
-    snap2.then((DocumentSnapshot doc) {
-      final data = doc.data() as Map<String, dynamic>;
+  Future<void> litEquipe(equipes) async {
+    String equ1 =equipes["Equ1"]??"inconnu";
+    String equ2 =equipes["Equ2"]??"inconnu";
+    final snap = await monPostier.prendEquipe(equ1);
+    if(snap!=null){
       setState(() {
-        print('ok');
-        Equ2 = data["classe"]??"inconnu au bataillon";
-        devise2 = data["devise"]??"...";
+        equipe_1 = snap.data()!;
       });
-    },
-      onError: (e) => print("Error getting document: $e"),
-    );
+    }
+    final snap2 = await monPostier.prendEquipe(equ2);
+    if(snap2!=null){
+      setState(() {
+        equipe_2 = snap2.data()!;
+      });
+    }
   }
 }

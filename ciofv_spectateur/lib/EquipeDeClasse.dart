@@ -10,7 +10,7 @@ class EquipeDeClasse{
   int? defaites = 0;
   int? egalites = 0;
   int? points = 0;
-  List<String>? joueurs = [];
+  String? joueurs = "[fantome]";
   String? capitaine = "inconnu au bataillon";
   String? arbitre = "inconnu au bataillon";
 
@@ -42,9 +42,22 @@ class EquipeDeClasse{
       points: data?['points'],
       victoires: data?['victoires'],
       defaites: data?['defaites'],
-      egalites: data?['egallites'],
-      joueurs: data?['nom_participants'] is Iterable ? List.from(data?['nom_participants']) : null,
+      egalites: data?['egalites'],
+      joueurs: data?['nom_participant'] is Iterable ? List.from(data?['nom_participant']).join('\n') : "[fantome]",
     );
   }
-
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (poule != null) "poule": poule,
+      if (classe != null) "classe": classe,
+      if (devise != null) "devise": devise,
+      if (capitaine != null) "capitaine": capitaine,
+      if (arbitre != null) "arbitre": arbitre,
+      if (points != null) "points": points,
+      if (victoires != null) "victoires": victoires,
+      if (defaites != null) "defaites": defaites,
+      if (egalites != null) "egalites": egalites,
+      if (joueurs != null) "nom_participants": joueurs,
+    };
+  }
 }

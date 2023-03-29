@@ -1,3 +1,4 @@
+import 'package:ciofv_spectateur/EquipeDeClasse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class laPoste {
@@ -73,8 +74,9 @@ class laPoste {
         "matchs").doc(id).snapshots();
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> prendEquipe(String id) {
-    return firebaseFirestore.collection("Equipes").doc(id).get();
+  Future<DocumentSnapshot<EquipeDeClasse>> prendEquipe(String id) {
+    final ref = firebaseFirestore.collection("Equipes").doc(id).withConverter(fromFirestore: EquipeDeClasse.fromFirestore, toFirestore: (EquipeDeClasse equipe, _)=>equipe.toFirestore(),);
+    return ref.get();
   }
 
 }

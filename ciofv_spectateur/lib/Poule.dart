@@ -70,7 +70,7 @@ class _Poule extends State<Poule>{
           }
           else{
             return const Center(
-              child: CircularProgressIndicator(
+              child: LinearProgressIndicator(
                 //color: AppCouleur.charge,
               ),
             );
@@ -110,8 +110,8 @@ class _Poule extends State<Poule>{
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
                             colors:[
-                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==1?Colors.lightGreen:Colors.grey,
-                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==2?Colors.lightGreen:Colors.grey,
+                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==1?Color.fromARGB(255, 0, 255, 0):Colors.grey,
+                              etat==0?Color.fromARGB(255, 220, 220, 220):etat==2?Color.fromARGB(255, 0, 255, 0):Colors.grey,
                             ],
                           stops: [0.45,0.55]
                         )
@@ -133,7 +133,7 @@ class _Poule extends State<Poule>{
               } else if (snapshot.connectionState == ConnectionState.none) {
                 return Text("Données inaccessibles");
               }
-              return CircularProgressIndicator();
+              return LinearProgressIndicator();
             });
       }
     return Text("Données inaccessibles");

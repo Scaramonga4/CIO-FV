@@ -13,7 +13,7 @@ const db = firebase.firestore();
 
 
 function RecupEquipes(){
-    db.collection("/Equipes").get().then((snapshot)=>{
+    db.collection("/Equipes").orderBy("arbitre").get().then((snapshot)=>{
         snapshot.docChanges().forEach((change) => {
             document.getElementById("vide").style.display = "none"
             let nom = change.doc.data().arbitre==null?"inconnu au bataillon":change.doc.data().arbitre;
@@ -87,6 +87,10 @@ document.addEventListener("drop", function(event) {
     }else if(event.target.classList.contains("Liste_Equipes_defil")){
         var data = event.dataTransfer.getData("arbitre");
         event.target.appendChild(document.getElementById(data));
+    }else if (event.target.parentNode.classList.contains("poule")){
+        event.target.parentNode.classList.remove("Survole");
+        var data = event.dataTransfer.getData("arbitre");
+        event.target.parentNode.appendChild(document.getElementById(data));
     }else{
         var data = event.dataTransfer.getData("arbitre");
         document.getElementById("list_Equipes").appendChild(document.getElementById(data));

@@ -63,7 +63,6 @@ function recuperationDesMatchs(){
         if (finale==null) chemin="/Poules/"+maP+"/matchs"
         else chemin = "/Poules/finale/"+finale
         db.collection(chemin).get().then((snapshot)=>{
-            
             snapshot.docChanges().forEach((change) => {
                 console.log(change.doc.data())
                 var match = change.doc.data();

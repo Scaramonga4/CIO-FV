@@ -49,7 +49,7 @@ function Enregistre(){
             "forfait":document.getElementById("forfait").value
         })
         console.log(document.getElementById("forfait").value)
-        const chemin3 = db.collection("Parametres").doc(etat)
+        const chemin3 = db.collection("Parametres").doc("etat")
         transaction.update(chemin3,{
             lancement:true
         })

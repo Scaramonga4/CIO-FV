@@ -57,7 +57,7 @@ class _PageDePoule extends State<PageDePoule>{//création de la page de Poules
               bottom: ppadding/2,
             ),
             child: GestureDetector(
-              onTap: ()=> Navigator.of(context).push(versMaPoule(index)),
+              onTap: ()=> {if (poules.length>index && terrain.length>index)Navigator.of(context).push(versMaPoule(index))},
               child:Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent),

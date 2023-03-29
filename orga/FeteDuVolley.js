@@ -16,7 +16,7 @@ var Nombre_Equipes = 0;
 
 
 function RecupEquipes(){
-    db.collection("/Equipes").onSnapshot((snapshot)=>{
+    db.collection("/Equipes").orderBy("classe").onSnapshot((snapshot)=>{
         snapshot.docChanges().forEach((change) => {
             var classe = change.doc.data().classe==null?"inconnu au bataillon":change.doc.data().classe;
             console.log("Changement équipes?: ", change.doc.id);

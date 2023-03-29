@@ -13,7 +13,7 @@ const db = firebase.firestore();
 
 
 function RecupEquipes(){
-    db.collection("/Equipes").get().then((snapshot)=>{
+    db.collection("/Equipes").orderBy("classe").get().then((snapshot)=>{
         snapshot.docChanges().forEach((change) => {
             var classe = change.doc.data().classe==null?"inconnu au bataillon":change.doc.data().classe;
             if (change.type === "added") {

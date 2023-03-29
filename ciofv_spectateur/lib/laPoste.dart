@@ -67,7 +67,14 @@ class laPoste {
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> prendMatch(String poule, String id) {
+    print(poule);
+    print(id);
     return firebaseFirestore.collection("Poules").doc(poule).collection(
         "matchs").doc(id).snapshots();
   }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> prendEquipe(String id) {
+    return firebaseFirestore.collection("Equipes").doc(id).get();
+  }
+
 }

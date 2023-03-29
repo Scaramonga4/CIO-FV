@@ -106,8 +106,8 @@ function enr_matchs(){
                     "Equ1": equ1 == defaut.text?null:getKeyByValue(liste_equipes,equ1),
                     "Equ2": equ2 == defaut.text?null:getKeyByValue(liste_equipes,equ2)
                 },
-                "heure" : null,
-                "passage" : null,
+                "heure" : "",
+                "passage" : 0,
                 score: {"Equ1": 0, "Equ2": 0},
                 "termine":0,
                 "commentaire":"",

@@ -115,6 +115,113 @@ li:hover{
     background-color: rgb(0, 132, 255);
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+.tooltip .tooltiptext {
+    font-family: Arial;
+    visibility: hidden;
+    width: 120px;
+    background-color:  rgb(56, 56, 56);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    
+      /* Position the tooltip text */
+      position: absolute;
+      z-index: 1;
+      bottom: auto;
+      top:5px;
+      left: 128%;
+    
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:  transparent rgb(56, 56, 56)transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+
+#menu {
+    width: fit-content;
+    border-radius: 3px;
+    position: fixed;
+    left: 10px;
+    top: 8px;
+    padding: 12px 14px;
+    background-color: RoyalBlue;
+}
+
+.noirceur{
+    display: none;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.navCote {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+  
+  /* The navigation menu links */
+  .navCote a {
+    padding: 8px 8px 8px 27px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .navCote a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style du bouton "fermer" */
+  .navCote #closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
 .Liste_Equipes{
     border : 4px blue solid;
     margin : 10px;

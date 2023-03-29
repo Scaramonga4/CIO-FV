@@ -4,12 +4,27 @@
         <meta charset="utf-8"/>
         <title>Création des équipes</title>
         <link rel="stylesheet" href="FeteDuVolley.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     </head>
     
     <body>
+        <div id="maNavDeCote" class="navCote">
+            <a href="javascript:void(0)" id="closebtn">&times;</a>
+            <a href="/F-V_ConfigPoules.html">Configuration des poules</a>
+            <a href="/F-V_ConfigArbitres.html">Répartition des arbitres</a>
+            <a href="/F-V_ConfigMatchs.html">Configuration des matchs</a>
+            <a href="/F-V_Lancement.html">Configuration finale</a>
+            <a href="/F-V_tableau_bord.html">Tableau de bord</a>
+            <a href="https://www.ipic-asso.fr">A propos</a>
+          </div>
+          <div class="noirceur">
+    
+          </div>
+          <div id="main">
+        <button id="menu" alt="Menu" class="tooltip" ><i class="fa fa-bars"><span class="tooltiptext">Menu</span></i></button>
         <h1>Création des équipes</h1>
         <div>
             <span>Nombre d'équipes : <span id=Nombre_Equipes>0</span></span>
@@ -46,6 +61,7 @@
                 </div>
             </form>
         </div>
+    </div>
         <script src="FeteDuVolley.js"> </script>
     </body>
 </html>

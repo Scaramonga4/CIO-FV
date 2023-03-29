@@ -188,3 +188,16 @@ $("#Liste_Equipes").on("click", ".maChips", function(event){
         }
     })
 })
+document.getElementById("menu").addEventListener("click",function(event){
+    document.getElementById("maNavDeCote").style.width = "250px";
+  document.getElementById("main").style.opacity = "50%";
+  var dimmer = $('.noirceur');
+  dimmer.show();
+  });
+
+  document.getElementById("closebtn").addEventListener('click',function (e) {
+    document.getElementById("maNavDeCote").style.width = "0";
+    document.getElementById("main").style.opacity = "100%";
+    var dimmer = $('.noirceur');
+    dimmer.hide();
+  });
